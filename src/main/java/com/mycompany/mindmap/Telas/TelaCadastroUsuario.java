@@ -4,7 +4,7 @@
  */
 package com.mycompany.mindmap.Telas;
 
-import com.mycompany.mindmap.Classes.DAO;
+import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
 import com.mycompany.mindmap.Classes.Usuario;
 import java.text.*;
 import javax.swing.JOptionPane;
@@ -163,7 +163,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
     private void buttonCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCriarActionPerformed
 
         try {
-            DAO dao = new DAO();
+            UsuarioDAO dao = new UsuarioDAO();
 
             //nome
             String nome = nomeTextField.getText();

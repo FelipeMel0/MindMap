@@ -4,7 +4,7 @@
  */
 package com.mycompany.mindmap.Telas;
 
-import com.mycompany.mindmap.Classes.DAO;
+import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
 import com.mycompany.mindmap.Classes.Usuario;
 import javax.swing.JOptionPane;
 
@@ -127,7 +127,7 @@ public class TelaLogin extends javax.swing.JFrame {
               
         try{
             Usuario usuario = new Usuario(email, senha);
-            DAO dao = new DAO();
+            UsuarioDAO dao = new UsuarioDAO();
             
             if(dao.usuarioExiste(usuario)){
                 JOptionPane.showMessageDialog(null, "Olá!");

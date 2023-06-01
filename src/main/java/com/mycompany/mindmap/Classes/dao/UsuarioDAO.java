@@ -1,8 +1,10 @@
-package com.mycompany.mindmap.Classes;
+package com.mycompany.mindmap.Classes.dao;
 
+import com.mycompany.mindmap.Classes.ConexaoBD;
+import com.mycompany.mindmap.Classes.Usuario;
 import java.sql.*;
 
-public class DAO {
+public class UsuarioDAO {
 
     public Connection conexao;
 
