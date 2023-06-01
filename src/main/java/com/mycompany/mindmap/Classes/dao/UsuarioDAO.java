@@ -6,8 +6,6 @@ import java.sql.*;
 
 public class UsuarioDAO {
 
-    public Connection conexao;
-
     public boolean usuarioExiste(Usuario usuario) throws Exception {
         String sql = "SELECT * FROM usuario WHERE email = ? AND senha = ?";
 
@@ -32,7 +30,7 @@ public class UsuarioDAO {
             insert.setString(3, usuario.getEmail());
             insert.setString(4, usuario.getSenha());
             insert.setString(5, usuario.getTipoUsuario());
-            
+
             insert.execute();
 
         } catch (Exception e) {
