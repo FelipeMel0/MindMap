@@ -126,11 +126,12 @@ public class TelaLogin extends javax.swing.JFrame {
         String senha = new String(senhaPasswordField.getPassword());
               
         try{
-            Usuario usuario = new Usuario(email, senha);
+//            Usuario usuario = new Usuario(email, senha);
             UsuarioDAO dao = new UsuarioDAO();
+            Usuario realizarLoginVariavel = dao.realizarLogin(email, senha);
             
-            if(dao.usuarioExiste(usuario)){
-                JOptionPane.showMessageDialog(null, "Olá!");
+            if(null != realizarLoginVariavel){
+                JOptionPane.showMessageDialog(null, "Olá " + realizarLoginVariavel.getNome());
                 
             } else{
                 JOptionPane.showMessageDialog(null, "Usuário inválido");

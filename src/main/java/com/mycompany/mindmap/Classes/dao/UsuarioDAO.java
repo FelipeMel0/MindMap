@@ -3,19 +3,36 @@ package com.mycompany.mindmap.Classes.dao;
 import com.mycompany.mindmap.Classes.ConexaoBD;
 import com.mycompany.mindmap.Classes.Usuario;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class UsuarioDAO {
 
-    public boolean usuarioExiste(Usuario usuario) throws Exception {
+    public Usuario realizarLogin(String email, String senha) throws Exception {
+        Usuario usuario = null;
+        
         String sql = "SELECT * FROM usuario WHERE email = ? AND senha = ?";
 
         try (Connection conn = ConexaoBD.obtemConexao(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, usuario.getEmail());
-            ps.setString(2, usuario.getSenha());
-            try (ResultSet rs = ps.executeQuery()) {
-                return rs.next();
+            ps.setString(1, email);
+            ps.setString(2, senha);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("idUsuario");
+                String nome = rs.getString("nome");
+//                Date dataNascimento = rs.getDate("dataNasc");
+                String tipoUsuario = rs.getString("tipoUsuario");
+
+                DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+                String dataNasc = fmt.format(rs.getDate("dataNasc"));
+
+                usuario = new Usuario(id, nome, dataNasc, email, senha, tipoUsuario);
             }
         }
+        
+        return usuario;
 
     }
 
@@ -38,6 +55,28 @@ public class UsuarioDAO {
             System.out.println("Erro na inclusão: " + e.getMessage());
 
         }
+    }
+
+    public void editarUsuario(Usuario usuario) {
+
+        try {
+            String sql = "UPDATE usuario SET nome = ?, dataNasc = ?, email = ?, senha = ? WHERE id = ?";
+
+            Connection conn = ConexaoBD.obtemConexao();
+            PreparedStatement update = conn.prepareStatement(sql);
+
+            update.setString(1, usuario.getNome());
+            update.setString(2, usuario.getDataNasc());
+            update.setString(3, usuario.getEmail());
+            update.setString(4, usuario.getSenha());
+            update.setInt(5, usuario.getIdUsuario());
+
+            update.execute();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 }

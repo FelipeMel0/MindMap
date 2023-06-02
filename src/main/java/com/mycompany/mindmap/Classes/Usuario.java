@@ -2,6 +2,16 @@ package com.mycompany.mindmap.Classes;
 
 public class Usuario {
     
+    private int idUsuario;
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+    
     private String nome;
     private String dataNasc;
     private String email;
@@ -16,11 +26,20 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
     
+    public Usuario(int idUsuario, String nome, String dataNasc, String email, String senha, String tipoUsuario){
+        this.idUsuario = idUsuario;
+        this.nome = nome;
+        this.dataNasc = dataNasc;
+        this.email = email;
+        this.senha = senha;
+        this.tipoUsuario = tipoUsuario;
+    }
+    
     public Usuario(String email, String senha){
         this.email = email;
         this.senha = senha;
     }
-
+    
     public String getTipoUsuario() {
         return tipoUsuario;
     }
