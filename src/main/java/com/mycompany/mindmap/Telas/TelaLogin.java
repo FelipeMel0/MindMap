@@ -128,10 +128,14 @@ public class TelaLogin extends javax.swing.JFrame {
         try{
 //            Usuario usuario = new Usuario(email, senha);
             UsuarioDAO dao = new UsuarioDAO();
-            Usuario realizarLoginVariavel = dao.realizarLogin(email, senha);
+            Usuario realizacaoLogin = dao.realizarLogin(email, senha);
             
-            if(null != realizarLoginVariavel){
-                JOptionPane.showMessageDialog(null, "Olá " + realizarLoginVariavel.getNome());
+            if(null != realizacaoLogin){
+                JOptionPane.showMessageDialog(null, "Olá " + realizacaoLogin.getNome());
+                this.dispose();
+                TelaEditarUsuario telaEditar = new TelaEditarUsuario(realizacaoLogin);
+                telaEditar.setVisible(true);
+                
                 
             } else{
                 JOptionPane.showMessageDialog(null, "Usuário inválido");

@@ -8,6 +8,9 @@ import com.mycompany.mindmap.Classes.Usuario;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
 import java.lang.reflect.Field;
 import java.text.*;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,13 +20,21 @@ public class TelaEditarUsuario extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaEditarUsuario
+     * @param usuario
      */
-    public TelaEditarUsuario() {
+    public TelaEditarUsuario(Usuario usuario) throws ParseException {
         super("Editar usuário");
         initComponents();
         this.setLocationRelativeTo(null);
 
-        txtNome.setText("Nome do usuário");
+        txtNome.setText(usuario.getNome());
+        
+        Date dataNasc =new SimpleDateFormat("yyyy-MM-dd").parse(usuario.getDataNasc());
+        txtDataNasc.setDate(dataNasc);
+        
+        txtEmail.setText(usuario.getEmail());
+        txtSenha.setText(usuario.getSenha());
+        
     }
 
     /**
@@ -186,7 +197,12 @@ public class TelaEditarUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaEditarUsuario().setVisible(true);
+                Usuario usuario = null;
+                try {
+                    new TelaEditarUsuario(usuario).setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(TelaEditarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
