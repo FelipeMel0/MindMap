@@ -10,7 +10,7 @@ public class UsuarioDAO {
 
     public Usuario realizarLogin(String email, String senha) throws Exception {
         Usuario usuario = null;
-        
+
         String sql = "SELECT * FROM usuario WHERE email = ? AND senha = ?";
 
         try (Connection conn = ConexaoBD.obtemConexao(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -30,6 +30,43 @@ public class UsuarioDAO {
 
                 usuario = new Usuario(id, nome, dataNasc, email, senha, tipoUsuario);
             }
+        }
+
+        return usuario;
+
+    }
+
+    public Usuario selecionarPorId(int idUsuario) {
+        
+        Usuario usuario = null;
+
+        String sql = "SELECT * FROM usuario WHERE idUsuario = ?";
+
+        try {
+
+            Connection conn = ConexaoBD.obtemConexao();
+            PreparedStatement consulta = conn.prepareStatement(sql);
+            
+            consulta.setInt(1, idUsuario);
+            
+            ResultSet rs = consulta.executeQuery();
+            
+            if(rs.next() == true){
+                
+                String nome = rs.getString("nome");
+                String dataNasc = rs.getString("dataNasc");
+                String email = rs.getString("email");
+                String senha = rs.getString("senha");
+                String tipoUsuario = rs.getString("tipoUsuario");
+                
+                usuario = new Usuario(idUsuario, nome, dataNasc, email, senha, tipoUsuario);
+                
+            }              
+
+        } catch (Exception e){
+            
+            System.out.println("Erro: " + e.getMessage());
+            
         }
         
         return usuario;
@@ -75,6 +112,26 @@ public class UsuarioDAO {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+
+    }
+
+    public void excluirUsuario(int idUsuario) {
+
+        try {
+            String sql = "DELETE FROM usuario WHERE idUsuario = ?";
+
+            Connection conn = ConexaoBD.obtemConexao();
+            PreparedStatement delete = conn.prepareStatement(sql);
+
+            delete.setInt(1, idUsuario);
+
+            delete.execute();
+
+        } catch (Exception e) {
+
+            System.out.println(e.getMessage());
+
         }
 
     }
