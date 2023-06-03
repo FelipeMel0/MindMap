@@ -35,6 +35,14 @@ public class Usuario {
         this.tipoUsuario = tipoUsuario;
     }
     
+    public Usuario(int idUsuario, String nome, String dataNasc, String email, String senha){
+        this.idUsuario = idUsuario;
+        this.nome = nome;
+        this.dataNasc = dataNasc;
+        this.email = email;
+        this.senha = senha;
+    }
+    
     public Usuario(String email, String senha){
         this.email = email;
         this.senha = senha;

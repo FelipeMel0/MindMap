@@ -97,7 +97,7 @@ public class UsuarioDAO {
     public void editarUsuario(Usuario usuario) {
 
         try {
-            String sql = "UPDATE usuario SET nome = ?, dataNasc = ?, email = ?, senha = ? WHERE id = ?";
+            String sql = "UPDATE usuario SET nome = ?, dataNasc = ?, email = ?, senha = ? WHERE idUsuario = ?";
 
             Connection conn = ConexaoBD.obtemConexao();
             PreparedStatement update = conn.prepareStatement(sql);

@@ -11,6 +11,7 @@ import java.text.*;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,21 +21,25 @@ public class TelaEditarUsuario extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaEditarUsuario
+     *
      * @param usuario
      */
+    int idUsuario = 0;
     public TelaEditarUsuario(Usuario usuario) throws ParseException {
         super("Editar usuário");
         initComponents();
         this.setLocationRelativeTo(null);
 
         txtNome.setText(usuario.getNome());
-        
-        Date dataNasc =new SimpleDateFormat("yyyy-MM-dd").parse(usuario.getDataNasc());
+
+        Date dataNasc = new SimpleDateFormat("yyyy-MM-dd").parse(usuario.getDataNasc());
         txtDataNasc.setDate(dataNasc);
-        
+
         txtEmail.setText(usuario.getEmail());
         txtSenha.setText(usuario.getSenha());
         
+        idUsuario = usuario.getIdUsuario();
+
     }
 
     /**
@@ -158,8 +163,19 @@ public class TelaEditarUsuario extends javax.swing.JFrame {
         String email = txtEmail.getText();
         String senha = new String(txtSenha.getPassword());
 
-        DateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
         String dataNasc = fmt.format(this.txtDataNasc.getDate());
+
+        Usuario usuario = new Usuario(idUsuario, nome, dataNasc, email, senha);
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+
+        try {
+            usuarioDao.editarUsuario(usuario);
+            JOptionPane.showMessageDialog(null, "Dados alterados com sucesso");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao realizar edição");
+            System.out.println(e.getMessage());
+        }
 
     }//GEN-LAST:event_buttonEditarActionPerformed
 
