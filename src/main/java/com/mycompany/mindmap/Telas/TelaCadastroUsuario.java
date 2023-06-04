@@ -185,7 +185,12 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
             dao.criarUsuario(usuario);
 
-            JOptionPane.showMessageDialog(null, "Usuário inserido com sucesso!");
+            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
+            
+            this.dispose();
+            TelaLogin telaLogin = new TelaLogin();
+            telaLogin.setVisible(true);
+            
         } catch (Exception e) {
 
             System.out.println(e.getMessage());

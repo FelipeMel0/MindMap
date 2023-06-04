@@ -17,10 +17,12 @@ public class TelaDeletarUsuario extends javax.swing.JFrame {
     /**
      * Creates new form TelaDeletarUsuario
      */
-    public TelaDeletarUsuario() {
+    int idUsuario;
+    public TelaDeletarUsuario(Usuario usuario) {
         super("Excluir usuário");
         initComponents();
         this.setLocationRelativeTo(null);
+        idUsuario = usuario.getIdUsuario();
     }
 
     /**
@@ -34,24 +36,34 @@ public class TelaDeletarUsuario extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        txtIdUsuario = new com.toedter.components.JSpinField();
+        excluirButton = new javax.swing.JButton();
+        buttonCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         jLabel1.setText("Deletar usuário");
 
-        jLabel2.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
-        jLabel2.setText("Id de usuário");
+        jLabel2.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
+        jLabel2.setText("Deseja excluir seu perfil de usuário?");
 
-        jButton1.setBackground(new java.awt.Color(0, 194, 255));
-        jButton1.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("EXCLUIR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        excluirButton.setBackground(new java.awt.Color(0, 194, 255));
+        excluirButton.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
+        excluirButton.setForeground(new java.awt.Color(255, 255, 255));
+        excluirButton.setText("EXCLUIR");
+        excluirButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                excluirButtonActionPerformed(evt);
+            }
+        });
+
+        buttonCancelar.setBackground(new java.awt.Color(255, 41, 69));
+        buttonCancelar.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
+        buttonCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        buttonCancelar.setText("CANCELAR");
+        buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelarActionPerformed(evt);
             }
         });
 
@@ -66,11 +78,12 @@ public class TelaDeletarUsuario extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(txtIdUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(42, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(buttonCancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(excluirButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,26 +92,32 @@ public class TelaDeletarUsuario extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addGap(8, 8, 8)
-                .addComponent(txtIdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(excluirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void excluirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirButtonActionPerformed
 
-        int idUsuario = txtIdUsuario.getValue();
+        int idUsuarioSelecionado = idUsuario;
 
         UsuarioDAO usuarioDao = new UsuarioDAO();
 
         try {
-            Usuario usuarioSelecionado = usuarioDao.selecionarPorId(idUsuario);
+            Usuario usuarioSelecionado = usuarioDao.selecionarPorId(idUsuarioSelecionado);
             usuarioDao.excluirUsuario(usuarioSelecionado.getIdUsuario());
             JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso");
+            
+            this.dispose();
+            
+            TelaLogin telaLogin = new TelaLogin();
+            telaLogin.setVisible(true);
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro na exclusão");
             System.out.println(e.getMessage());
@@ -106,7 +125,11 @@ public class TelaDeletarUsuario extends javax.swing.JFrame {
 
 //        System.out.print(txtIdUsuario.getValue());;
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_excluirButtonActionPerformed
+
+    private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_buttonCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -138,15 +161,16 @@ public class TelaDeletarUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaDeletarUsuario().setVisible(true);
+                Usuario usuario = null;
+                new TelaDeletarUsuario(usuario).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton buttonCancelar;
+    private javax.swing.JButton excluirButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private com.toedter.components.JSpinField txtIdUsuario;
     // End of variables declaration//GEN-END:variables
 }

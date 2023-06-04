@@ -133,8 +133,10 @@ public class TelaLogin extends javax.swing.JFrame {
             if(null != realizacaoLogin){
                 JOptionPane.showMessageDialog(null, "Olá " + realizacaoLogin.getNome());
                 this.dispose();
-                TelaEditarUsuario telaEditar = new TelaEditarUsuario(realizacaoLogin);
-                telaEditar.setVisible(true);
+//                TelaEditarUsuario telaEditar = new TelaEditarUsuario(realizacaoLogin);
+//                telaEditar.setVisible(true);
+                TelaDeletarUsuario telaDeletar = new TelaDeletarUsuario(realizacaoLogin);
+                telaDeletar.setVisible(true);
                 
                 
             } else{
