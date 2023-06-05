@@ -3,6 +3,7 @@ package com.mycompany.mindmap.Classes.dao;
 import com.mycompany.mindmap.Classes.ConexaoBD;
 import com.mycompany.mindmap.Classes.Aba;
 import java.sql.*;
+import javax.swing.table.DefaultTableModel;
 
 public class AbaDAO {
 
@@ -26,5 +27,5 @@ public class AbaDAO {
         }
 
     }
-
+        
 }

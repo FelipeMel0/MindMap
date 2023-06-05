@@ -121,36 +121,38 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
-        
+
         String email = emailTextField.getText();
         String senha = new String(senhaPasswordField.getPassword());
-              
-        try{
+
+        try {
 //            Usuario usuario = new Usuario(email, senha);
             UsuarioDAO dao = new UsuarioDAO();
             Usuario realizacaoLogin = dao.realizarLogin(email, senha);
-            
-            if(null != realizacaoLogin){
+
+            if (null != realizacaoLogin) {
                 JOptionPane.showMessageDialog(null, "Olá " + realizacaoLogin.getNome());
                 this.dispose();
 //                TelaEditarUsuario telaEditar = new TelaEditarUsuario(realizacaoLogin);
 //                telaEditar.setVisible(true);
+
 //                TelaDeletarUsuario telaDeletar = new TelaDeletarUsuario(realizacaoLogin);
 //                telaDeletar.setVisible(true);
+//                  TelaCadastroAba telaCadastroAba = new TelaCadastroAba(realizacaoLogin);
+//                  telaCadastroAba.setVisible(true);
+                TelaInicio telaInicio = new TelaInicio(realizacaoLogin);
+                telaInicio.setVisible(true);
 
-                  TelaCadastroAba telaCadastroAba = new TelaCadastroAba(realizacaoLogin);
-                  telaCadastroAba.setVisible(true);
-                                
-            } else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Usuário inválido");
-                
+
             }
-                        
-        } catch (Exception e){
+
+        } catch (Exception e) {
 //            JOptionPane.showMessageDialog(null, e.getMessage());
             System.out.println(e.getMessage());
         }
-                
+
     }//GEN-LAST:event_buttonLoginActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
