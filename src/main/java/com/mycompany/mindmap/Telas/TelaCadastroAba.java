@@ -5,7 +5,9 @@
 package com.mycompany.mindmap.Telas;
 
 import com.mycompany.mindmap.Classes.Aba;
+import com.mycompany.mindmap.Classes.Usuario;
 import com.mycompany.mindmap.Classes.dao.AbaDAO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,10 +18,13 @@ public class TelaCadastroAba extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastroAba
      */
-    public TelaCadastroAba() {
+    int idUsuario = 0;
+    public TelaCadastroAba(Usuario usuario) {
         super("Cadastro de aba");
         initComponents();
         this.setLocationRelativeTo(null);
+        
+        idUsuario = usuario.getIdUsuario();
     }
 
     /**
@@ -104,11 +109,13 @@ public class TelaCadastroAba extends javax.swing.JFrame {
             AbaDAO abadao = new AbaDAO();
 
             String titulo = tituloTextField.getText();
-            int idUsuario = 1;
 
             Aba aba = new Aba(titulo, idUsuario);
 
             abadao.criarTarefa(aba);
+            
+            JOptionPane.showMessageDialog(null, "Aba cadastrada com sucesso!");
+            
         } catch (Exception e) {
             
             System.out.println(e.getMessage());
@@ -147,7 +154,8 @@ public class TelaCadastroAba extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaCadastroAba().setVisible(true);
+                Usuario usuario = null;
+                new TelaCadastroAba(usuario).setVisible(true);
             }
         });
     }

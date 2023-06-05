@@ -135,10 +135,12 @@ public class TelaLogin extends javax.swing.JFrame {
                 this.dispose();
 //                TelaEditarUsuario telaEditar = new TelaEditarUsuario(realizacaoLogin);
 //                telaEditar.setVisible(true);
-                TelaDeletarUsuario telaDeletar = new TelaDeletarUsuario(realizacaoLogin);
-                telaDeletar.setVisible(true);
-                
-                
+//                TelaDeletarUsuario telaDeletar = new TelaDeletarUsuario(realizacaoLogin);
+//                telaDeletar.setVisible(true);
+
+                  TelaCadastroAba telaCadastroAba = new TelaCadastroAba(realizacaoLogin);
+                  telaCadastroAba.setVisible(true);
+                                
             } else{
                 JOptionPane.showMessageDialog(null, "Usuário inválido");
                 
