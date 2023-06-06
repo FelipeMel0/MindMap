@@ -40,6 +40,7 @@ public class OpcoesAbas extends javax.swing.JPanel {
         opcaoExcluir = new com.mycompany.mindmap.Telas.Inicio.ActionButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setForeground(new java.awt.Color(255, 51, 51));
 
         opcaoEditar.setText("Editar");
         opcaoEditar.setFont(new java.awt.Font("Tw Cen MT", 1, 12)); // NOI18N
