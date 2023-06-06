@@ -6,6 +6,9 @@ package com.mycompany.mindmap.Telas.Inicio;
 
 import com.mycompany.mindmap.Classes.ConexaoBD;
 import com.mycompany.mindmap.Classes.Usuario;
+import com.mycompany.mindmap.Classes.dao.AbaDAO;
+import com.mycompany.mindmap.Classes.Aba;
+import com.mycompany.mindmap.Telas.Aba.DialogEditarAba;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.Connection;
@@ -14,6 +17,7 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
+import javax.swing.JDialog;
 
 /**
  *
@@ -25,8 +29,9 @@ public class TelaInicio extends javax.swing.JFrame {
      * Creates new form TelaInicio
      */
     int idUsuario = 0;
-    
-//    int idAba = 0;
+
+    int idAba = 0;
+
     public void consultaAbas() {
 
         DefaultTableModel tabelaModel = (DefaultTableModel) tableAba.getModel();
@@ -43,8 +48,7 @@ public class TelaInicio extends javax.swing.JFrame {
 
             while (rs.next()) {
                 tabelaModel.addRow(new String[]{rs.getString(1), rs.getString(2)});
-                
-            }        
+            }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao fazer consulta");
@@ -52,18 +56,36 @@ public class TelaInicio extends javax.swing.JFrame {
         }
 
     }
-    
-    public void editarAbaSelecionada(int linhaTabela){
-        
+
+    public void editarAbaSelecionada(int linhaTabela) {
+
         String pegandoIdAba = tableAba.getModel().getValueAt(linhaTabela, 0).toString();
-        int idAba = Integer.parseInt(pegandoIdAba);
-        JOptionPane.showMessageDialog(null, "Id da aba: " + idAba);
+        int idAbaSelecionada = Integer.parseInt(pegandoIdAba);
+//        JOptionPane.showMessageDialog(null, "Id da aba: " + idAba);
+
+//        int idUsuarioAba = Integer.parseInt();
+        AbaDAO abaDao = new AbaDAO();
+
+        Aba abaSelecionada = abaDao.selecionarAbaPorId(idAbaSelecionada);
+
+        int idUsuarioAba = abaSelecionada.getIdUsuario();
+        String tituloAba = abaSelecionada.getTitulo();
+
+        Aba aba = new Aba(idAbaSelecionada, tituloAba, idUsuarioAba);
+
+        JDialog dialog = new DialogEditarAba(this, true, aba);
+        dialog.setVisible(true);  
         
+        consultaAbas();
+
     }
 
     public TelaInicio(Usuario usuario) {
 
+        super("Tela de início");        
         initComponents();
+        setLocationRelativeTo(null);
+        
         idUsuario = usuario.getIdUsuario();
         consultaAbas();
 
@@ -77,7 +99,7 @@ public class TelaInicio extends javax.swing.JFrame {
             public void editarAba(int linha) {
 //                System.out.println("Editar: " + linha);
 //                JOptionPane.showMessageDialog(null, "Editar: " + linha);
-                  editarAbaSelecionada(linha);
+                editarAbaSelecionada(linha);
             }
 
             @Override
@@ -86,13 +108,11 @@ public class TelaInicio extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Excluir:  " + linha);
             }
         };
-                
+
         tableAba.getColumnModel().getColumn(2).setCellRenderer(new TableActionCellRender());
         tableAba.getColumnModel().getColumn(2).setCellEditor(new TableActionCellEditor(evento));
 
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
