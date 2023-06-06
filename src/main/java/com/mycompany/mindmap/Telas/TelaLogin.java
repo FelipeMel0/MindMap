@@ -4,6 +4,7 @@
  */
 package com.mycompany.mindmap.Telas;
 
+import com.mycompany.mindmap.Telas.Inicio.TelaInicio;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
 import com.mycompany.mindmap.Classes.Usuario;
 import javax.swing.JOptionPane;
@@ -131,7 +132,7 @@ public class TelaLogin extends javax.swing.JFrame {
             Usuario realizacaoLogin = dao.realizarLogin(email, senha);
 
             if (null != realizacaoLogin) {
-                JOptionPane.showMessageDialog(null, "Olá " + realizacaoLogin.getNome());
+//                JOptionPane.showMessageDialog(null, "Olá " + realizacaoLogin.getNome());
                 this.dispose();
 //                TelaEditarUsuario telaEditar = new TelaEditarUsuario(realizacaoLogin);
 //                telaEditar.setVisible(true);

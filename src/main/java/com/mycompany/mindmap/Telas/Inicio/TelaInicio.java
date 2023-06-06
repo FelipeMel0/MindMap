@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.mindmap.Telas;
+package com.mycompany.mindmap.Telas.Inicio;
 
 import com.mycompany.mindmap.Classes.ConexaoBD;
 import com.mycompany.mindmap.Classes.Usuario;
@@ -34,6 +34,24 @@ public class TelaInicio extends javax.swing.JFrame {
         tableAba.getTableHeader().setFont(new Font("TW Cen MT", Font.BOLD, 14));
         tableAba.getTableHeader().setOpaque(false);
         tableAba.getTableHeader().setForeground(new Color(0, 0, 0));
+
+        //Aplicando opções para a terceira coluna
+        TableActionEvent evento = new TableActionEvent() {
+            @Override
+            public void editarAba(int linha) {
+                System.out.println("Editar: " + linha);
+                JOptionPane.showMessageDialog(null, "Editar: " + linha);
+            }
+
+            @Override
+            public void excluirAba(int linha) {
+                System.out.println("Excluir: " + linha);
+                JOptionPane.showMessageDialog(null, "Excluir:  " + linha);
+            }
+        };
+                
+        tableAba.getColumnModel().getColumn(2).setCellRenderer(new TableActionCellRender());
+        tableAba.getColumnModel().getColumn(2).setCellEditor(new TableActionCellEditor(evento));
 
     }
 
@@ -87,23 +105,24 @@ public class TelaInicio extends javax.swing.JFrame {
         tableAba.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         tableAba.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Id", "Título"
+                "Id", "Título", "Opções"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tableAba.setRowHeight(40);
         tableAba.setSelectionBackground(new java.awt.Color(0, 143, 188));
         tableAba.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tableAba);
