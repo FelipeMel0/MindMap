@@ -9,7 +9,7 @@ public class OpcoesAbas extends javax.swing.JPanel {
      * Creates new form OpcoesAbas
      */
     public OpcoesAbas() {
-        initComponents();
+        initComponents();        
     }
     
     public void initEvent(TableActionEvent evento, int linha){
@@ -25,7 +25,7 @@ public class OpcoesAbas extends javax.swing.JPanel {
                 evento.excluirAba(linha);
             }
         });
-    }
+    }   
 
     /**
      * This method is called from within the constructor to initialize the form.

@@ -83,7 +83,7 @@
               <Table columnCount="3" rowCount="4">
                 <Column editable="false" title="Id" type="java.lang.Object"/>
                 <Column editable="false" title="T&#xed;tulo" type="java.lang.Object"/>
-                <Column editable="false" title="Op&#xe7;&#xf5;es" type="java.lang.Object"/>
+                <Column editable="true" title="Op&#xe7;&#xf5;es" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
