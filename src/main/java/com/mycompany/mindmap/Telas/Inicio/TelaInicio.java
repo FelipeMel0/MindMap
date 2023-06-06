@@ -25,37 +25,8 @@ public class TelaInicio extends javax.swing.JFrame {
      * Creates new form TelaInicio
      */
     int idUsuario = 0;
-
-    public TelaInicio(Usuario usuario) {
-
-        initComponents();
-        idUsuario = usuario.getIdUsuario();
-        consultaAbas();
-
-        tableAba.getTableHeader().setFont(new Font("TW Cen MT", Font.BOLD, 14));
-        tableAba.getTableHeader().setOpaque(false);
-        tableAba.getTableHeader().setForeground(new Color(0, 0, 0));
-
-        //Aplicando opções para a terceira coluna
-        TableActionEvent evento = new TableActionEvent() {
-            @Override
-            public void editarAba(int linha) {
-                System.out.println("Editar: " + linha);
-                JOptionPane.showMessageDialog(null, "Editar: " + linha);
-            }
-
-            @Override
-            public void excluirAba(int linha) {
-                System.out.println("Excluir: " + linha);
-                JOptionPane.showMessageDialog(null, "Excluir:  " + linha);
-            }
-        };
-                
-        tableAba.getColumnModel().getColumn(2).setCellRenderer(new TableActionCellRender());
-        tableAba.getColumnModel().getColumn(2).setCellEditor(new TableActionCellEditor(evento));
-
-    }
-
+    
+//    int idAba = 0;
     public void consultaAbas() {
 
         DefaultTableModel tabelaModel = (DefaultTableModel) tableAba.getModel();
@@ -72,7 +43,8 @@ public class TelaInicio extends javax.swing.JFrame {
 
             while (rs.next()) {
                 tabelaModel.addRow(new String[]{rs.getString(1), rs.getString(2)});
-            }
+                
+            }        
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro ao fazer consulta");
@@ -80,6 +52,47 @@ public class TelaInicio extends javax.swing.JFrame {
         }
 
     }
+    
+    public void editarAbaSelecionada(int linhaTabela){
+        
+        String pegandoIdAba = tableAba.getModel().getValueAt(linhaTabela, 0).toString();
+        int idAba = Integer.parseInt(pegandoIdAba);
+        JOptionPane.showMessageDialog(null, "Id da aba: " + idAba);
+        
+    }
+
+    public TelaInicio(Usuario usuario) {
+
+        initComponents();
+        idUsuario = usuario.getIdUsuario();
+        consultaAbas();
+
+        tableAba.getTableHeader().setFont(new Font("TW Cen MT", Font.BOLD, 14));
+        tableAba.getTableHeader().setOpaque(false);
+        tableAba.getTableHeader().setForeground(new Color(0, 0, 0));
+
+        //Aplicando opções para a terceira coluna
+        TableActionEvent evento = new TableActionEvent() {
+            @Override
+            public void editarAba(int linha) {
+//                System.out.println("Editar: " + linha);
+//                JOptionPane.showMessageDialog(null, "Editar: " + linha);
+                  editarAbaSelecionada(linha);
+            }
+
+            @Override
+            public void excluirAba(int linha) {
+                System.out.println("Excluir: " + linha);
+                JOptionPane.showMessageDialog(null, "Excluir:  " + linha);
+            }
+        };
+                
+        tableAba.getColumnModel().getColumn(2).setCellRenderer(new TableActionCellRender());
+        tableAba.getColumnModel().getColumn(2).setCellEditor(new TableActionCellEditor(evento));
+
+    }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -115,9 +128,16 @@ public class TelaInicio extends javax.swing.JFrame {
                 "Id", "Título", "Opções"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, true
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
