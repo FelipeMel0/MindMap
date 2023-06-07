@@ -20,7 +20,7 @@ public class TableActionCellRender extends DefaultTableCellRenderer {
         if (isSelected == false) {
             opcoesAbas.setBackground(Color.WHITE);
         } else {
-            opcoesAbas.setBackground(com.getBackground());            
+            opcoesAbas.setBackground(com.getBackground());
         }
 
         return opcoesAbas;

@@ -80,5 +80,25 @@ public class AbaDAO {
         }
 
     }
+    
+    public void excluirAba(int idAba){
+        
+        try {
+            
+            String sql = "DELETE FROM aba WHERE idAba = ?";
+            Connection conn = ConexaoBD.obtemConexao();
+            PreparedStatement delete = conn.prepareStatement(sql);
+
+            delete.setInt(1, idAba);
+
+            delete.execute();
+            
+        } catch (Exception e){
+            
+            System.out.println("Erro na exclusão: " + e.getMessage());
+            
+        }
+        
+    }
 
 }

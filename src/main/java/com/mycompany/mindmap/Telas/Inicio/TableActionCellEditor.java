@@ -1,5 +1,6 @@
 package com.mycompany.mindmap.Telas.Inicio;
 
+import java.awt.Color;
 import java.awt.Component;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;

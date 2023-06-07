@@ -9,6 +9,7 @@ import com.mycompany.mindmap.Classes.Usuario;
 import com.mycompany.mindmap.Classes.dao.AbaDAO;
 import com.mycompany.mindmap.Classes.Aba;
 import com.mycompany.mindmap.Telas.Aba.DialogEditarAba;
+import com.mycompany.mindmap.Telas.Aba.DialogExcluirAba;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.Connection;
@@ -61,9 +62,7 @@ public class TelaInicio extends javax.swing.JFrame {
 
         String pegandoIdAba = tableAba.getModel().getValueAt(linhaTabela, 0).toString();
         int idAbaSelecionada = Integer.parseInt(pegandoIdAba);
-//        JOptionPane.showMessageDialog(null, "Id da aba: " + idAba);
-
-//        int idUsuarioAba = Integer.parseInt();
+        
         AbaDAO abaDao = new AbaDAO();
 
         Aba abaSelecionada = abaDao.selecionarAbaPorId(idAbaSelecionada);
@@ -78,6 +77,28 @@ public class TelaInicio extends javax.swing.JFrame {
         
         consultaAbas();
 
+    }
+    
+    public void excluirAbaSelecionada(int linhaTabela){
+        
+        String pegandoIdAba = tableAba.getModel().getValueAt(linhaTabela, 0).toString();
+        int idAbaSelecionada = Integer.parseInt(pegandoIdAba);
+        
+        AbaDAO abaDao = new AbaDAO();
+
+        Aba abaSelecionada = abaDao.selecionarAbaPorId(idAbaSelecionada);
+        
+        int idAba = abaSelecionada.getIdAba();
+        int idUsuarioAba = abaSelecionada.getIdUsuario();
+        String tituloAba = abaSelecionada.getTitulo();
+        
+        Aba aba = new Aba(idAba, tituloAba, idUsuarioAba);
+        
+        JDialog dialog = new DialogExcluirAba(this, true, aba);
+        dialog.setVisible(true);
+        
+        consultaAbas();
+        
     }
 
     public TelaInicio(Usuario usuario) {
@@ -104,8 +125,9 @@ public class TelaInicio extends javax.swing.JFrame {
 
             @Override
             public void excluirAba(int linha) {
-                System.out.println("Excluir: " + linha);
-                JOptionPane.showMessageDialog(null, "Excluir:  " + linha);
+//                System.out.println("Excluir: " + linha);
+//                JOptionPane.showMessageDialog(null, "Excluir:  " + linha);
+                excluirAbaSelecionada(linha);
             }
         };
 
