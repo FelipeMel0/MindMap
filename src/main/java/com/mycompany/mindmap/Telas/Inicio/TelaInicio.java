@@ -8,6 +8,8 @@ import com.mycompany.mindmap.Classes.ConexaoBD;
 import com.mycompany.mindmap.Classes.Usuario;
 import com.mycompany.mindmap.Classes.dao.AbaDAO;
 import com.mycompany.mindmap.Classes.Aba;
+import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
+import com.mycompany.mindmap.Telas.Aba.DialogCadastroAba;
 import com.mycompany.mindmap.Telas.Aba.DialogEditarAba;
 import com.mycompany.mindmap.Telas.Aba.DialogExcluirAba;
 import java.awt.Color;
@@ -62,7 +64,7 @@ public class TelaInicio extends javax.swing.JFrame {
 
         String pegandoIdAba = tableAba.getModel().getValueAt(linhaTabela, 0).toString();
         int idAbaSelecionada = Integer.parseInt(pegandoIdAba);
-        
+
         AbaDAO abaDao = new AbaDAO();
 
         Aba abaSelecionada = abaDao.selecionarAbaPorId(idAbaSelecionada);
@@ -73,40 +75,40 @@ public class TelaInicio extends javax.swing.JFrame {
         Aba aba = new Aba(idAbaSelecionada, tituloAba, idUsuarioAba);
 
         JDialog dialog = new DialogEditarAba(this, true, aba);
-        dialog.setVisible(true);  
-        
+        dialog.setVisible(true);
+
         consultaAbas();
 
     }
-    
-    public void excluirAbaSelecionada(int linhaTabela){
-        
+
+    public void excluirAbaSelecionada(int linhaTabela) {
+
         String pegandoIdAba = tableAba.getModel().getValueAt(linhaTabela, 0).toString();
         int idAbaSelecionada = Integer.parseInt(pegandoIdAba);
-        
+
         AbaDAO abaDao = new AbaDAO();
 
         Aba abaSelecionada = abaDao.selecionarAbaPorId(idAbaSelecionada);
-        
+
         int idAba = abaSelecionada.getIdAba();
         int idUsuarioAba = abaSelecionada.getIdUsuario();
         String tituloAba = abaSelecionada.getTitulo();
-        
+
         Aba aba = new Aba(idAba, tituloAba, idUsuarioAba);
-        
+
         JDialog dialog = new DialogExcluirAba(this, true, aba);
         dialog.setVisible(true);
-        
+
         consultaAbas();
-        
+
     }
 
     public TelaInicio(Usuario usuario) {
 
-        super("Tela de início");        
+        super("Tela de início");
         initComponents();
         setLocationRelativeTo(null);
-        
+
         idUsuario = usuario.getIdUsuario();
         consultaAbas();
 
@@ -149,8 +151,10 @@ public class TelaInicio extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableAba = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
         jLabel1.setText("Início");
@@ -195,17 +199,29 @@ public class TelaInicio extends javax.swing.JFrame {
             tableAba.getColumnModel().getColumn(0).setMaxWidth(100);
         }
 
+        jButton1.setBackground(new java.awt.Color(0, 194, 255));
+        jButton1.setFont(new java.awt.Font("Tw Cen MT", 1, 48)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("+");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -217,11 +233,25 @@ public class TelaInicio extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        Usuario usuarioLogado = usuarioDao.selecionarPorId(idUsuario);
+                
+        JDialog dialog = new DialogCadastroAba(this, rootPaneCheckingEnabled, usuarioLogado);
+        dialog.setVisible(true);
+        
+        consultaAbas();
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -260,6 +290,7 @@ public class TelaInicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
