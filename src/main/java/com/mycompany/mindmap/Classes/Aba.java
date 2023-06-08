@@ -10,6 +10,11 @@ public class Aba {
         this.titulo = titulo;
         this.idUsuario = idUsuario;
     }
+    
+    public Aba(int idAba, String titulo){
+        this.idAba = idAba;
+        this.titulo = titulo;
+    }
 
     public Aba(int idAba, String titulo, int idUsuario) {
         this.idAba = idAba;

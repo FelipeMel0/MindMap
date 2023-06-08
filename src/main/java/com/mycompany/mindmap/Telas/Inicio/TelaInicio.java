@@ -357,7 +357,11 @@ public class TelaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonCadastroAbaActionPerformed
 
     private void buttonTarefasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTarefasActionPerformed
-        JOptionPane.showMessageDialog(null, "Tarefas");
+//        JOptionPane.showMessageDialog(null, "Tarefas");
+
+        DialogSelecionarTarefasAba dialogTarefasAba = new DialogSelecionarTarefasAba(this, rootPaneCheckingEnabled, idUsuario);
+        dialogTarefasAba.setVisible(true);
+
     }//GEN-LAST:event_buttonTarefasActionPerformed
 
     private void buttonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLogoutActionPerformed
