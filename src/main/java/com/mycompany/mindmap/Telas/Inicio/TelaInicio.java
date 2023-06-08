@@ -8,6 +8,7 @@ import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
 import com.mycompany.mindmap.Telas.Aba.DialogCadastroAba;
 import com.mycompany.mindmap.Telas.Aba.DialogEditarAba;
 import com.mycompany.mindmap.Telas.Aba.DialogExcluirAba;
+import com.mycompany.mindmap.Telas.TelaLogin;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.Connection;
@@ -154,6 +155,10 @@ public class TelaInicio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         labelNomeUsuario = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        buttonTarefas = new javax.swing.JButton();
+        buttonLogout = new javax.swing.JButton();
+        buttonInicio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -216,22 +221,75 @@ public class TelaInicio extends javax.swing.JFrame {
 
         labelNomeUsuario.setFont(new java.awt.Font("Tw Cen MT", 1, 18)); // NOI18N
         labelNomeUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        labelNomeUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelNomeUsuario.setText("nome");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconePerfil.png"))); // NOI18N
+
+        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator1.setOpaque(true);
+
+        buttonTarefas.setBackground(new java.awt.Color(0, 194, 255));
+        buttonTarefas.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
+        buttonTarefas.setForeground(new java.awt.Color(255, 255, 255));
+        buttonTarefas.setText("TAREFAS");
+        buttonTarefas.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        buttonTarefas.setBorderPainted(false);
+        buttonTarefas.setContentAreaFilled(false);
+        buttonTarefas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTarefasActionPerformed(evt);
+            }
+        });
+
+        buttonLogout.setBackground(new java.awt.Color(0, 194, 255));
+        buttonLogout.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
+        buttonLogout.setForeground(new java.awt.Color(255, 255, 255));
+        buttonLogout.setText("LOGOUT");
+        buttonLogout.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        buttonLogout.setBorderPainted(false);
+        buttonLogout.setContentAreaFilled(false);
+        buttonLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonLogoutActionPerformed(evt);
+            }
+        });
+
+        buttonInicio.setBackground(new java.awt.Color(0, 194, 255));
+        buttonInicio.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
+        buttonInicio.setForeground(new java.awt.Color(255, 255, 255));
+        buttonInicio.setText("INÍCIO");
+        buttonInicio.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
+        buttonInicio.setBorderPainted(false);
+        buttonInicio.setContentAreaFilled(false);
+        buttonInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonInicioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(labelNomeUsuario)))
-                .addContainerGap(50, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonTarefas, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(buttonInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +298,18 @@ public class TelaInicio extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelNomeUsuario)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addComponent(buttonTarefas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonLogout)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(186, 186, 186)
+                    .addComponent(buttonInicio)
+                    .addContainerGap(289, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,8 +317,8 @@ public class TelaInicio extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -261,7 +330,7 @@ public class TelaInicio extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(5, 5, 5)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
@@ -269,7 +338,7 @@ public class TelaInicio extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonCadastroAba, javax.swing.GroupLayout.PREFERRED_SIZE, 60, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(5, 5, 5))
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -286,6 +355,22 @@ public class TelaInicio extends javax.swing.JFrame {
 
         consultaAbas();
     }//GEN-LAST:event_buttonCadastroAbaActionPerformed
+
+    private void buttonTarefasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTarefasActionPerformed
+        JOptionPane.showMessageDialog(null, "Tarefas");
+    }//GEN-LAST:event_buttonTarefasActionPerformed
+
+    private void buttonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLogoutActionPerformed
+        this.dispose();
+        
+        TelaLogin telaLogin = new TelaLogin();
+        telaLogin.setVisible(true);
+        
+    }//GEN-LAST:event_buttonLogoutActionPerformed
+
+    private void buttonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInicioActionPerformed
+        JOptionPane.showMessageDialog(null, "Início");
+    }//GEN-LAST:event_buttonInicioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,11 +410,15 @@ public class TelaInicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCadastroAba;
+    private javax.swing.JButton buttonInicio;
+    private javax.swing.JButton buttonLogout;
+    private javax.swing.JButton buttonTarefas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelNomeUsuario;
     private javax.swing.JTable tableAba;
     // End of variables declaration//GEN-END:variables
