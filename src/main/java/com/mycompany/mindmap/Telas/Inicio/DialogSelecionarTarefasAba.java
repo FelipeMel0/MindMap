@@ -3,6 +3,9 @@ package com.mycompany.mindmap.Telas.Inicio;
 import com.mycompany.mindmap.Classes.Aba;
 import com.mycompany.mindmap.Classes.ConexaoBD;
 import com.mycompany.mindmap.Classes.Usuario;
+import com.mycompany.mindmap.Classes.dao.AbaDAO;
+import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
+import com.mycompany.mindmap.Telas.Tarefa.TelaListarTarefas;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,7 +28,6 @@ public class DialogSelecionarTarefasAba extends javax.swing.JDialog {
 
     private List<Aba> pegarAbasDoBanco(int idUsuario) {
         List<Aba> abas = new ArrayList<>();
-        
 
         String sql = "SELECT * FROM aba WHERE idUsuario = ?";
 
@@ -33,7 +35,6 @@ public class DialogSelecionarTarefasAba extends javax.swing.JDialog {
             Connection conn = ConexaoBD.obtemConexao();
             PreparedStatement consulta = conn.prepareStatement(sql);
             consulta.setInt(1, idUsuario);
-            
 
             ResultSet rs = consulta.executeQuery();
 
@@ -69,13 +70,13 @@ public class DialogSelecionarTarefasAba extends javax.swing.JDialog {
                         txtIdAba.setText(String.valueOf(abaSelecionada.getIdAba()));
                     }
 
-                });                
+                });
             }
             System.out.println(idUsuarioLogado);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-   
+
     }
 
     /**
@@ -184,13 +185,30 @@ public class DialogSelecionarTarefasAba extends javax.swing.JDialog {
 
     private void buttonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVoltarActionPerformed
         this.dispose();
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        Usuario usuario = usuarioDao.selecionarPorId(idUsuarioLogado);
+        TelaInicio telainicio = new TelaInicio(usuario);
+        telainicio.setVisible(true);
     }//GEN-LAST:event_buttonVoltarActionPerformed
 
     private void buttonSelecionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelecionarActionPerformed
 //        comboBoxAbas.getSelectedIndex();
 //        System.out.println("Aba selecionada: " + comboBoxAbas.getSelectedItem() + " " + idAba);
 //        txtIdAba.setText
-          JOptionPane.showMessageDialog(null, "Id da aba selecionada: " + txtIdAba.getText());
+//          JOptionPane.showMessageDialog(null, "Id da aba selecionada: " + txtIdAba.getText());
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        Usuario usuario = usuarioDao.selecionarPorId(idUsuarioLogado);
+        
+        idAba = Integer.parseInt(txtIdAba.getText());
+        
+        AbaDAO abaDao = new AbaDAO();
+        Aba aba = abaDao.selecionarAbaPorId(idAba);
+        
+        TelaListarTarefas telaListarTarefas = new TelaListarTarefas(usuario, aba);
+        telaListarTarefas.setVisible(true);
+        
+        this.dispose();
+        
     }//GEN-LAST:event_buttonSelecionarActionPerformed
 
     /**
