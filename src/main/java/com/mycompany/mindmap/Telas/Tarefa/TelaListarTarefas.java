@@ -3,7 +3,9 @@ package com.mycompany.mindmap.Telas.Tarefa;
 import com.mycompany.mindmap.Classes.Aba;
 import com.mycompany.mindmap.Classes.ConexaoBD;
 import com.mycompany.mindmap.Classes.Usuario;
+import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
 import com.mycompany.mindmap.Telas.Inicio.DialogSelecionarTarefasAba;
+import com.mycompany.mindmap.Telas.Inicio.TelaInicio;
 import com.mycompany.mindmap.Telas.TelaLogin;
 import java.awt.Color;
 import java.awt.Font;
@@ -22,7 +24,6 @@ public class TelaListarTarefas extends javax.swing.JFrame {
     /**
      * Creates new form TelaListarTarefas
      */
-    
     int idUsuario = 0;
     int idAba = 0;
     
@@ -30,26 +31,29 @@ public class TelaListarTarefas extends javax.swing.JFrame {
         super("Tarefas de " + aba.getTitulo());
         initComponents();
         setLocationRelativeTo(null);
-        
+
         idUsuario = usuario.getIdUsuario();
         idAba = aba.getIdAba();
-//        idUsuario = 2;
-//        idAba = 9;
-        
+
         consultaTarefas();
-        
-        tableTarefas.getTableHeader().setFont(new Font("TW Cen MT", Font.BOLD, 14));
+
+        tableTarefas.getTableHeader().setFont(new Font("TW Cen MT", Font.BOLD, 12));
         tableTarefas.getTableHeader().setOpaque(false);
         tableTarefas.getTableHeader().setForeground(new Color(0, 0, 0));
+
+        labelNomeAba.setText(aba.getTitulo() + ":");
+        
+        String arrayNome[] = usuario.getNome().split(" ", 2);
+        labelNomeUsuario.setText(arrayNome[0]);
         
     }
-    
-    public void consultaTarefas(){
-        
+
+    public void consultaTarefas() {
+
         DefaultTableModel tabelaModel = (DefaultTableModel) tableTarefas.getModel();
         tabelaModel.setRowCount(0);
-        
-        String sql = "SELECT * FROM tarefa WHERE idUsuario = ? AND idAba = ?";
+
+        String sql = "SELECT * FROM tarefa WHERE idUsuario = ? AND idAba = ?";       
 
         try {
             Connection conn = ConexaoBD.obtemConexao();
@@ -58,26 +62,29 @@ public class TelaListarTarefas extends javax.swing.JFrame {
             consulta.setInt(2, idAba);
 
             ResultSet rs = consulta.executeQuery();
-
+            
             while (rs.next()) {
 
+                //Formatando data de criação
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Date pegarDataCriacao = sdf.parse(rs.getString(5));
                 sdf.applyPattern("dd/MM/yyyy");
                 String dataCriacao = sdf.format(pegarDataCriacao);
-                
+
+                //Formatando data de conclusão
                 SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-//                sdf2.applyPattern("dd/MM/yyyy");
                 Date pegarDataConclusao = sdf2.parse(rs.getString(7));
                 sdf2.applyPattern("dd/MM/yyyy");
                 String dataConclusao = sdf2.format(pegarDataConclusao);
-                
-                LocalTime pegarHoraCriacao = LocalTime.parse(rs.getString(6), DateTimeFormatter.ofPattern("HH:mm:ss")); 
+
+                //Formatando hora de criação
+                LocalTime pegarHoraCriacao = LocalTime.parse(rs.getString(6), DateTimeFormatter.ofPattern("HH:mm:ss"));
                 String horaCriacao = pegarHoraCriacao.format(DateTimeFormatter.ofPattern("HH'h'mm"));
-                
-                LocalTime pegarHoraConclusao = LocalTime.parse(rs.getString(8), DateTimeFormatter.ofPattern("HH:mm:ss")); 
+
+                //Formatando hora de conclusão
+                LocalTime pegarHoraConclusao = LocalTime.parse(rs.getString(8), DateTimeFormatter.ofPattern("HH:mm:ss"));
                 String horaConclusao = pegarHoraConclusao.format(DateTimeFormatter.ofPattern("HH'h'mm"));
-                
+
                 tabelaModel.addRow(new String[]{rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), dataCriacao, horaCriacao, dataConclusao, horaConclusao});
             }
 
@@ -85,7 +92,7 @@ public class TelaListarTarefas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao fazer consulta");
             System.out.println(e.getMessage());
         }
-        
+
     }
 
     /**
@@ -105,7 +112,7 @@ public class TelaListarTarefas extends javax.swing.JFrame {
         buttonLogout = new javax.swing.JButton();
         buttonInicio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelNomeAba = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableTarefas = new javax.swing.JTable();
         buttonCriarTarefa = new javax.swing.JButton();
@@ -210,8 +217,8 @@ public class TelaListarTarefas extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
         jLabel1.setText("Tarefas");
 
-        jLabel2.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        jLabel2.setText("Nome da aba");
+        labelNomeAba.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
+        labelNomeAba.setText("Nome da aba");
 
         tableTarefas.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
         tableTarefas.setModel(new javax.swing.table.DefaultTableModel(
@@ -246,10 +253,8 @@ public class TelaListarTarefas extends javax.swing.JFrame {
             tableTarefas.getColumnModel().getColumn(0).setPreferredWidth(70);
             tableTarefas.getColumnModel().getColumn(0).setMaxWidth(70);
             tableTarefas.getColumnModel().getColumn(4).setMinWidth(100);
-            tableTarefas.getColumnModel().getColumn(4).setPreferredWidth(100);
             tableTarefas.getColumnModel().getColumn(4).setMaxWidth(100);
             tableTarefas.getColumnModel().getColumn(5).setMinWidth(100);
-            tableTarefas.getColumnModel().getColumn(5).setPreferredWidth(100);
             tableTarefas.getColumnModel().getColumn(5).setMaxWidth(100);
             tableTarefas.getColumnModel().getColumn(6).setMinWidth(120);
             tableTarefas.getColumnModel().getColumn(6).setPreferredWidth(120);
@@ -280,14 +285,14 @@ public class TelaListarTarefas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(labelNomeAba, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(buttonCriarTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1190, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1028, Short.MAX_VALUE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -297,7 +302,7 @@ public class TelaListarTarefas extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addComponent(labelNomeAba)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -310,9 +315,9 @@ public class TelaListarTarefas extends javax.swing.JFrame {
 
     private void buttonTarefasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTarefasActionPerformed
         //        JOptionPane.showMessageDialog(null, "Tarefas");
-
         DialogSelecionarTarefasAba dialogTarefasAba = new DialogSelecionarTarefasAba(this, rootPaneCheckingEnabled, idUsuario);
         dialogTarefasAba.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_buttonTarefasActionPerformed
 
     private void buttonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLogoutActionPerformed
@@ -324,7 +329,13 @@ public class TelaListarTarefas extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonLogoutActionPerformed
 
     private void buttonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInicioActionPerformed
-        JOptionPane.showMessageDialog(null, "Início");
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        Usuario usuario = usuarioDao.selecionarPorId(idUsuario);
+        
+        TelaInicio telaInicio = new TelaInicio(usuario);
+        telaInicio.setVisible(true);
+        
+        this.dispose();
     }//GEN-LAST:event_buttonInicioActionPerformed
 
     private void buttonCriarTarefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCriarTarefaActionPerformed
@@ -362,7 +373,7 @@ public class TelaListarTarefas extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             Usuario usuario = null;
             Aba aba = null;
-            public void run() {                
+            public void run() {
                 new TelaListarTarefas(usuario, aba).setVisible(true);
             }
         });
@@ -374,11 +385,11 @@ public class TelaListarTarefas extends javax.swing.JFrame {
     private javax.swing.JButton buttonLogout;
     private javax.swing.JButton buttonTarefas;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel labelNomeAba;
     private javax.swing.JLabel labelNomeUsuario;
     private javax.swing.JTable tableTarefas;
     // End of variables declaration//GEN-END:variables
