@@ -2,7 +2,9 @@ package com.mycompany.mindmap.Telas.Tarefa;
 
 import com.mycompany.mindmap.Classes.Aba;
 import com.mycompany.mindmap.Classes.ConexaoBD;
+import com.mycompany.mindmap.Classes.Tarefa;
 import com.mycompany.mindmap.Classes.Usuario;
+import com.mycompany.mindmap.Classes.dao.TarefaDAO;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
 import com.mycompany.mindmap.Telas.Inicio.DialogSelecionarTarefasAba;
 import com.mycompany.mindmap.Telas.Inicio.TelaInicio;
@@ -50,17 +52,44 @@ public class TelaListarTarefas extends javax.swing.JFrame {
         TableActionEventTarefa evento = new TableActionEventTarefa() {
             @Override
             public void editarTarefa(int linha) {
-                System.out.println("OPA");
+//                System.out.println("Editar");
+                editarTarefaSelecionada(linha);
             }
 
             @Override
             public void excluirTarefa(int linha) {
-                System.out.println("BLA");
+                System.out.println("Excluir");
             }
         };
 
         tableTarefas.getColumnModel().getColumn(8).setCellRenderer(new TableActionCellRenderTarefa());
         tableTarefas.getColumnModel().getColumn(8).setCellEditor(new TableActionCellEditorTarefa(evento));
+        
+    }
+    
+    public void editarTarefaSelecionada(int linhaTabela){
+        
+        String pegandoIdTarefa = tableTarefas.getModel().getValueAt(linhaTabela, 0).toString();
+        int idTarefaSelecionada = Integer.parseInt(pegandoIdTarefa);
+        
+        TarefaDAO tarefaDao = new TarefaDAO();
+        
+        Tarefa tarefaSelecionada = tarefaDao.selecionarTarefaPorId(idTarefaSelecionada);
+        
+        String titulo = tarefaSelecionada.getTitulo();
+        String statusConclusao = tarefaSelecionada.getStatusConclusao();
+        String descricao = tarefaSelecionada.getDescricao();
+        String dataCriacao = tarefaSelecionada.getDataCriacao();
+        String horaCriacao = tarefaSelecionada.getHoraCriacao();
+        String dataConclusao = tarefaSelecionada.getDataConclusao();
+        String horaConclusao = tarefaSelecionada.getHoraConclusao();
+        
+        Tarefa tarefa = new Tarefa(idTarefaSelecionada, titulo, statusConclusao, descricao, dataConclusao, horaConclusao);
+        
+        DialogEditarTarefa dialogEditarTarefa = new DialogEditarTarefa(this, rootPaneCheckingEnabled, tarefa);
+        dialogEditarTarefa.setVisible(true);
+        
+        consultaTarefas();
         
     }
 

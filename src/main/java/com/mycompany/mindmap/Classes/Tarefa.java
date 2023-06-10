@@ -6,6 +6,7 @@ import java.time.LocalTime;
 
 public class Tarefa {
     
+    private int idTarefa;
     private String titulo;
     private String statusConclusao;
     private String descricao;
@@ -13,6 +14,9 @@ public class Tarefa {
     private String horaCriacao;
     private String dataConclusao;
     private String horaConclusao;
+    
+    private int idUsuario;
+    private int idAba;
 
     public Tarefa(String titulo, String statusConclusao, String descricao, String dataCriacao, String horaCriacao, String dataConclusao, String horaConclusao) {
         this.titulo = titulo;
@@ -22,8 +26,65 @@ public class Tarefa {
         this.horaCriacao = horaCriacao;
         this.dataConclusao = dataConclusao;
         this.horaConclusao = horaConclusao;
-    }       
+    }     
 
+    public int getIdTarefa() {
+        return idTarefa;
+    }
+
+    public void setIdTarefa(int idTarefa) {
+        this.idTarefa = idTarefa;
+    }   
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public int getIdAba() {
+        return idAba;
+    }
+
+    public void setIdAba(int idAba) {
+        this.idAba = idAba;
+    }
+
+    public Tarefa(int idTarefa, String titulo, String statusConclusao, String descricao, String dataConclusao, String horaConclusao) {
+        this.idTarefa = idTarefa;
+        this.titulo = titulo;
+        this.statusConclusao = statusConclusao;
+        this.descricao = descricao;
+        this.dataConclusao = dataConclusao;
+        this.horaConclusao = horaConclusao;
+    }
+    
+    
+
+    public Tarefa(String titulo, String statusConclusao, String descricao, String dataCriacao, String horaCriacao, String dataConclusao, String horaConclusao, int idUsuario, int idAba) {
+        this.titulo = titulo;
+        this.statusConclusao = statusConclusao;
+        this.descricao = descricao;
+        this.dataCriacao = dataCriacao;
+        this.horaCriacao = horaCriacao;
+        this.dataConclusao = dataConclusao;
+        this.horaConclusao = horaConclusao;
+        this.idUsuario = idUsuario;
+        this.idAba = idAba;
+    }
+
+    public Tarefa(String titulo, String statusConclusao, String descricao, String dataConclusao, String horaConclusao) {
+        this.titulo = titulo;
+        this.statusConclusao = statusConclusao;
+        this.descricao = descricao;
+        this.dataConclusao = dataConclusao;
+        this.horaConclusao = horaConclusao;
+    }
+
+    
+    
     public String getTitulo() {
         return titulo;
     }
