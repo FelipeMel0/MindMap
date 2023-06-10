@@ -46,6 +46,22 @@ public class TelaListarTarefas extends javax.swing.JFrame {
         String arrayNome[] = usuario.getNome().split(" ", 2);
         labelNomeUsuario.setText(arrayNome[0]);
         
+        //Aplicando opções para a terceira coluna
+        TableActionEventTarefa evento = new TableActionEventTarefa() {
+            @Override
+            public void editarTarefa(int linha) {
+                System.out.println("OPA");
+            }
+
+            @Override
+            public void excluirTarefa(int linha) {
+                System.out.println("BLA");
+            }
+        };
+
+        tableTarefas.getColumnModel().getColumn(8).setCellRenderer(new TableActionCellRenderTarefa());
+        tableTarefas.getColumnModel().getColumn(8).setCellEditor(new TableActionCellEditorTarefa(evento));
+        
     }
 
     public void consultaTarefas() {
@@ -247,11 +263,13 @@ public class TelaListarTarefas extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableTarefas.setRowHeight(40);
         jScrollPane1.setViewportView(tableTarefas);
         if (tableTarefas.getColumnModel().getColumnCount() > 0) {
             tableTarefas.getColumnModel().getColumn(0).setMinWidth(70);
             tableTarefas.getColumnModel().getColumn(0).setPreferredWidth(70);
             tableTarefas.getColumnModel().getColumn(0).setMaxWidth(70);
+            tableTarefas.getColumnModel().getColumn(2).setPreferredWidth(60);
             tableTarefas.getColumnModel().getColumn(4).setMinWidth(100);
             tableTarefas.getColumnModel().getColumn(4).setMaxWidth(100);
             tableTarefas.getColumnModel().getColumn(5).setMinWidth(100);
@@ -262,6 +280,7 @@ public class TelaListarTarefas extends javax.swing.JFrame {
             tableTarefas.getColumnModel().getColumn(7).setMinWidth(120);
             tableTarefas.getColumnModel().getColumn(7).setPreferredWidth(120);
             tableTarefas.getColumnModel().getColumn(7).setMaxWidth(120);
+            tableTarefas.getColumnModel().getColumn(8).setPreferredWidth(120);
         }
 
         buttonCriarTarefa.setBackground(new java.awt.Color(0, 194, 255));
