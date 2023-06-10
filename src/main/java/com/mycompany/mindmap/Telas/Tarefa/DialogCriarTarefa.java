@@ -8,14 +8,18 @@ import com.mycompany.mindmap.Classes.Tarefa;
 import com.mycompany.mindmap.Classes.dao.TarefaDAO;
 import java.sql.Time;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.DateFormatter;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -26,9 +30,24 @@ public class DialogCriarTarefa extends javax.swing.JDialog {
     /**
      * Creates new form DialogCriarTarefa
      */
-    public DialogCriarTarefa(java.awt.Frame parent, boolean modal) {
+    int idAbaSelecionada = 0;
+    int idUsuarioLogado = 0;
+    public DialogCriarTarefa(java.awt.Frame parent, boolean modal, int idAba, int idUsuario) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
+        
+        idAbaSelecionada = idAba;
+        idUsuarioLogado = idUsuario;
+        
+        try {
+            MaskFormatter maskFormatter = new MaskFormatter("##:##:##");
+            maskFormatter.setPlaceholderCharacter('0');
+            maskFormatter.install(txtHoraConclusao);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    
     }
 
     /**
@@ -69,7 +88,7 @@ public class DialogCriarTarefa extends javax.swing.JDialog {
         jLabel6.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         jLabel6.setText("Hora para conclusão");
 
-        txtHoraConclusao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
+        txtHoraConclusao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance())));
         txtHoraConclusao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtHoraConclusaoActionPerformed(evt);
@@ -90,6 +109,11 @@ public class DialogCriarTarefa extends javax.swing.JDialog {
         buttonVoltar.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         buttonVoltar.setForeground(new java.awt.Color(255, 255, 255));
         buttonVoltar.setText("VOLTAR");
+        buttonVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonVoltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -169,11 +193,15 @@ public class DialogCriarTarefa extends javax.swing.JDialog {
             
             //Pegando data de conclusão
             String dataConclusao = fmt.format(txtDataConclusao.getDate());
+            
+            Time pegarHoraConclusao = Time.valueOf(txtHoraConclusao.getText());
+            String horaConclusao = fmt2.format(pegarHoraConclusao);
 
-            Tarefa tarefa = new Tarefa(titulo, statusConclusao, descricao, dataCriacao, horaCriacao, dataConclusao, horaCriacao);
+            Tarefa tarefa = new Tarefa(titulo, statusConclusao, descricao, dataCriacao, horaCriacao, dataConclusao, horaConclusao);
 
-            tarefaDao.criarTarefa(tarefa, 3, 2);
+            tarefaDao.criarTarefa(tarefa, idAbaSelecionada, idUsuarioLogado);
             JOptionPane.showMessageDialog(null, "Tarefa criada com sucesso");
+            this.dispose();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro na criação");
             System.out.print(e.getMessage());
@@ -184,6 +212,10 @@ public class DialogCriarTarefa extends javax.swing.JDialog {
     private void txtHoraConclusaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHoraConclusaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtHoraConclusaoActionPerformed
+
+    private void buttonVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVoltarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_buttonVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,7 +247,7 @@ public class DialogCriarTarefa extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DialogCriarTarefa dialog = new DialogCriarTarefa(new javax.swing.JFrame(), true);
+                DialogCriarTarefa dialog = new DialogCriarTarefa(new javax.swing.JFrame(), true, 0, 0);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

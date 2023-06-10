@@ -339,7 +339,10 @@ public class TelaListarTarefas extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonInicioActionPerformed
 
     private void buttonCriarTarefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCriarTarefaActionPerformed
-        // TODO add your handling code here:
+        DialogCriarTarefa dialogCriarTarefa = new DialogCriarTarefa(this, rootPaneCheckingEnabled, idAba, idUsuario);
+        dialogCriarTarefa.setVisible(true);
+        
+        consultaTarefas();
     }//GEN-LAST:event_buttonCriarTarefaActionPerformed
 
     /**
