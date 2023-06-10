@@ -9,7 +9,7 @@ public class AbaDAO {
 
     public Connection conn = ConexaoBD.obtemConexao();
 
-    public void criarTarefa(Aba aba) {
+    public void criarAba(Aba aba) {
 
         try {
             String sql = "INSERT INTO aba (titulo, idUsuario) VALUES (?, ?)";

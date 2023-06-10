@@ -116,7 +116,7 @@ public class DialogCadastroAba extends javax.swing.JDialog {
 
             Aba aba = new Aba(titulo, idUsuario);
 
-            abadao.criarTarefa(aba);
+            abadao.criarAba(aba);
 
             JOptionPane.showMessageDialog(null, "Aba cadastrada com sucesso!");
 

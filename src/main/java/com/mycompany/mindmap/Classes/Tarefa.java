@@ -9,20 +9,20 @@ public class Tarefa {
     private String titulo;
     private String statusConclusao;
     private String descricao;
-    private Date dataCriacao;
-    private Time horaCriacao;
-    private Date dataConclusao;
-    private Time horaConclusao;
-    
-    public Tarefa(String titulo, String statusConclusao, String descricao, Date dataCriacao, Time horaCriacao, Date dataConclusao, Time horaConclusao){
+    private String dataCriacao;
+    private String horaCriacao;
+    private String dataConclusao;
+    private String horaConclusao;
+
+    public Tarefa(String titulo, String statusConclusao, String descricao, String dataCriacao, String horaCriacao, String dataConclusao, String horaConclusao) {
         this.titulo = titulo;
         this.statusConclusao = statusConclusao;
         this.descricao = descricao;
-        this.dataCriacao = Date.valueOf(LocalDate.now()); //2023-06-01 (1° de junho de 2023 - 01/06/2023)
-        this.horaCriacao = Time.valueOf(LocalTime.now()); //09:25:04 (hora:minuto:segundo)
+        this.dataCriacao = dataCriacao;
+        this.horaCriacao = horaCriacao;
         this.dataConclusao = dataConclusao;
         this.horaConclusao = horaConclusao;
-    }
+    }       
 
     public String getTitulo() {
         return titulo;
@@ -48,37 +48,39 @@ public class Tarefa {
         this.descricao = descricao;
     }
 
-    public Date getDataCriacao() {
+    public String getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(Date dataCriacao) {
+    public void setDataCriacao(String dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
-    public Time getHoraCriacao() {
+    public String getHoraCriacao() {
         return horaCriacao;
     }
 
-    public void setHoraCriacao(Time horaCriacao) {
+    public void setHoraCriacao(String horaCriacao) {
         this.horaCriacao = horaCriacao;
     }
 
-    public Date getDataConclusao() {
+    public String getDataConclusao() {
         return dataConclusao;
     }
 
-    public void setDataConclusao(Date dataConclusao) {
+    public void setDataConclusao(String dataConclusao) {
         this.dataConclusao = dataConclusao;
     }
 
-    public Time getHoraConclusao() {
+    public String getHoraConclusao() {
         return horaConclusao;
     }
 
-    public void setHoraConclusao(Time horaConclusao) {
+    public void setHoraConclusao(String horaConclusao) {
         this.horaConclusao = horaConclusao;
     }
+
+   
     
     
     
