@@ -67,6 +67,27 @@ public class TarefaDAO {
         }
 
     }
+    
+    public void excluirTarefa(int idTarefa){
+        
+        try{
+            
+            String sql = "DELETE FROM tarefa WHERE idTarefa = ?";
+            
+            Connection conn = ConexaoBD.obtemConexao();
+            PreparedStatement delete = conn.prepareStatement(sql);
+
+            delete.setInt(1, idTarefa);
+
+            delete.execute();
+            
+        } catch (Exception e){
+            
+            System.out.println(e.getMessage());
+            
+        }
+        
+    }
 
     public Tarefa selecionarTarefaPorId(int idTarefa) {
 

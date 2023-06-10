@@ -1,5 +1,7 @@
 package com.mycompany.mindmap.Telas.Tarefa;
 
+import com.mycompany.mindmap.Telas.Tarefa.Dialogs.DialogCriarTarefa;
+import com.mycompany.mindmap.Telas.Tarefa.Dialogs.DialogEditarTarefa;
 import com.mycompany.mindmap.Classes.Aba;
 import com.mycompany.mindmap.Classes.ConexaoBD;
 import com.mycompany.mindmap.Classes.Tarefa;
@@ -8,6 +10,7 @@ import com.mycompany.mindmap.Classes.dao.TarefaDAO;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
 import com.mycompany.mindmap.Telas.Inicio.DialogSelecionarTarefasAba;
 import com.mycompany.mindmap.Telas.Inicio.TelaInicio;
+import com.mycompany.mindmap.Telas.Tarefa.Dialogs.DialogExcluirTarefa;
 import com.mycompany.mindmap.Telas.TelaLogin;
 import java.awt.Color;
 import java.awt.Font;
@@ -58,7 +61,8 @@ public class TelaListarTarefas extends javax.swing.JFrame {
 
             @Override
             public void excluirTarefa(int linha) {
-                System.out.println("Excluir");
+//                System.out.println("Excluir");
+                excluirTarefaSelecionada(linha);                
             }
         };
 
@@ -79,8 +83,6 @@ public class TelaListarTarefas extends javax.swing.JFrame {
         String titulo = tarefaSelecionada.getTitulo();
         String statusConclusao = tarefaSelecionada.getStatusConclusao();
         String descricao = tarefaSelecionada.getDescricao();
-        String dataCriacao = tarefaSelecionada.getDataCriacao();
-        String horaCriacao = tarefaSelecionada.getHoraCriacao();
         String dataConclusao = tarefaSelecionada.getDataConclusao();
         String horaConclusao = tarefaSelecionada.getHoraConclusao();
         
@@ -88,6 +90,30 @@ public class TelaListarTarefas extends javax.swing.JFrame {
         
         DialogEditarTarefa dialogEditarTarefa = new DialogEditarTarefa(this, rootPaneCheckingEnabled, tarefa);
         dialogEditarTarefa.setVisible(true);
+        
+        consultaTarefas();
+        
+    }
+    
+    public void excluirTarefaSelecionada(int linhaTabela){
+        
+        String pegandoIdTarefa = tableTarefas.getModel().getValueAt(linhaTabela, 0).toString();
+        int idTarefaSelecionada = Integer.parseInt(pegandoIdTarefa);
+        
+        TarefaDAO tarefaDao = new TarefaDAO();
+        
+        Tarefa tarefaSelecionada = tarefaDao.selecionarTarefaPorId(idTarefaSelecionada);
+        
+        String titulo = tarefaSelecionada.getTitulo();
+        String statusConclusao = tarefaSelecionada.getStatusConclusao();
+        String descricao = tarefaSelecionada.getDescricao();
+        String dataConclusao = tarefaSelecionada.getDataConclusao();
+        String horaConclusao = tarefaSelecionada.getHoraConclusao();
+        
+        Tarefa tarefa = new Tarefa(idTarefaSelecionada, titulo, statusConclusao, descricao, dataConclusao, horaConclusao);
+                
+        DialogExcluirTarefa dialogExcluirTarefa = new DialogExcluirTarefa(this, rootPaneCheckingEnabled, tarefa);
+        dialogExcluirTarefa.setVisible(true);
         
         consultaTarefas();
         

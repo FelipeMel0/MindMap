@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package com.mycompany.mindmap.Telas.Tarefa;
+package com.mycompany.mindmap.Telas.Tarefa.Dialogs;
 
 import com.mycompany.mindmap.Classes.Tarefa;
 import com.mycompany.mindmap.Classes.dao.TarefaDAO;
