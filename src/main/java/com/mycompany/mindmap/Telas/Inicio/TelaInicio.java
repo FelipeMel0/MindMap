@@ -375,7 +375,7 @@ public class TelaInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonLogoutActionPerformed
 
     private void buttonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInicioActionPerformed
-        JOptionPane.showMessageDialog(null, "Início");
+//        JOptionPane.showMessageDialog(null, "Início");
     }//GEN-LAST:event_buttonInicioActionPerformed
 
     /**
