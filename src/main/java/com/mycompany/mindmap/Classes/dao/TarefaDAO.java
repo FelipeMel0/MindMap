@@ -5,11 +5,6 @@ import java.sql.Connection;
 import com.mycompany.mindmap.Classes.Tarefa;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class TarefaDAO {
 
@@ -82,6 +77,26 @@ public class TarefaDAO {
             delete.execute();
             
         } catch (Exception e){
+            
+            System.out.println(e.getMessage());
+            
+        }
+        
+    }
+    
+    public void excluirTodasTarefasDeUsuario(int idUsuario){
+        
+        try{
+            
+            String sql = "DELETE FROM tarefa WHERE idUsuario = ?";
+            Connection conn = ConexaoBD.obtemConexao();
+            PreparedStatement delete = conn.prepareStatement(sql);
+
+            delete.setInt(1, idUsuario);
+
+            delete.execute();
+            
+        } catch(Exception e){
             
             System.out.println(e.getMessage());
             

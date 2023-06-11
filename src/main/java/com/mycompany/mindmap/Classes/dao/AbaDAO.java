@@ -100,5 +100,25 @@ public class AbaDAO {
         }
         
     }
+    
+    public void excluirTodasAbasDeUsuario(int idUsuario){
+        
+        try {
+            
+            String sql = "DELETE FROM aba WHERE idUsuario = ?";
+            Connection conn = ConexaoBD.obtemConexao();
+            PreparedStatement delete = conn.prepareStatement(sql);
+
+            delete.setInt(1, idUsuario);
+
+            delete.execute();
+            
+        } catch (Exception e){
+            
+            System.out.println("Erro na exclusão: " + e.getMessage());
+            
+        }
+        
+    }
 
 }

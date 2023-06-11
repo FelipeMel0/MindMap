@@ -157,7 +157,7 @@ public class TelaInicio extends javax.swing.JFrame {
                     dialogSelecionarOpcoes.setVisible(true);
                 }
 
-            });
+            });           
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

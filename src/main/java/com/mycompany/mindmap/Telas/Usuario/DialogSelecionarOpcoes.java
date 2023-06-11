@@ -2,6 +2,7 @@ package com.mycompany.mindmap.Telas.Usuario;
 
 import com.mycompany.mindmap.Classes.Usuario;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 
 public class DialogSelecionarOpcoes extends javax.swing.JDialog {
@@ -12,6 +13,7 @@ public class DialogSelecionarOpcoes extends javax.swing.JDialog {
     int idUsuario = 0;
 
     JDialog dialogEditar = null;
+    JDialog dialogExcluir = null;
 
     public DialogSelecionarOpcoes(java.awt.Frame parent, boolean modal, Usuario usuario) {
         super(parent, modal);
@@ -31,8 +33,11 @@ public class DialogSelecionarOpcoes extends javax.swing.JDialog {
         Usuario usuarioLogado = new Usuario(idUsuario, nome, dataNasc, email, senha, tipoUsuario);
 
         dialogEditar = new DialogEditarUsuario(parent, rootPaneCheckingEnabled, usuarioLogado);
+        dialogExcluir = new DialogExcluirUsuario(parent, modal, usuarioLogado);
 
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -80,6 +85,11 @@ public class DialogSelecionarOpcoes extends javax.swing.JDialog {
         buttonExcluir.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         buttonExcluir.setForeground(new java.awt.Color(255, 255, 255));
         buttonExcluir.setText("EXCLUIR PERFIL");
+        buttonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExcluirActionPerformed(evt);
+            }
+        });
 
         buttonCancelar.setBackground(new java.awt.Color(0, 0, 0));
         buttonCancelar.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
@@ -137,6 +147,12 @@ public class DialogSelecionarOpcoes extends javax.swing.JDialog {
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
         dialogEditar.setVisible(true);
     }//GEN-LAST:event_buttonEditarActionPerformed
+
+    private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
+        dialogExcluir.setVisible(true);
+//        dialogExcluir.getContentPane().getComponents();
+//        JButton botaoExclusao = DialogExcluirUsuario.pegar
+    }//GEN-LAST:event_buttonExcluirActionPerformed
 
     /**
      * @param args the command line arguments
