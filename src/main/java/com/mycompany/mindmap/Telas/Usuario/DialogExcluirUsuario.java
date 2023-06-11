@@ -4,8 +4,6 @@ import com.mycompany.mindmap.Classes.Usuario;
 import com.mycompany.mindmap.Classes.dao.AbaDAO;
 import com.mycompany.mindmap.Classes.dao.TarefaDAO;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
-import com.mycompany.mindmap.Telas.TelaLogin;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 public class DialogExcluirUsuario extends javax.swing.JDialog {
@@ -113,11 +111,6 @@ public class DialogExcluirUsuario extends javax.swing.JDialog {
                                     
             usuarioDao.excluirUsuario(usuarioSelecionado.getIdUsuario());
             JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso");
-                        
-//            this.dispose();
-//            
-//            TelaLogin telaLogin = new TelaLogin();
-//            telaLogin.setVisible(true);
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro na exclusão");

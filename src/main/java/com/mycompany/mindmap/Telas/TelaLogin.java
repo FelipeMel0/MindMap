@@ -7,6 +7,7 @@ package com.mycompany.mindmap.Telas;
 import com.mycompany.mindmap.Telas.Inicio.TelaInicio;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
 import com.mycompany.mindmap.Classes.Usuario;
+import com.mycompany.mindmap.Telas.Administrador.TelaCadastroAdministrador;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,6 +41,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         senhaPasswordField = new javax.swing.JPasswordField();
+        buttonCriarAdm = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,30 +80,40 @@ public class TelaLogin extends javax.swing.JFrame {
         senhaPasswordField.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
         senhaPasswordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        buttonCriarAdm.setBackground(new java.awt.Color(0, 109, 143));
+        buttonCriarAdm.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
+        buttonCriarAdm.setForeground(new java.awt.Color(255, 255, 255));
+        buttonCriarAdm.setText("CRIAR ADMINISTRADOR");
+        buttonCriarAdm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCriarAdmActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(98, 98, 98)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(emailTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(buttonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(senhaPasswordField, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(97, 97, 97)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(buttonCriarAdm, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(emailTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                    .addComponent(buttonLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(senhaPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(jLabel3)))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -115,7 +127,9 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonCriarAdm, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -141,6 +155,17 @@ public class TelaLogin extends javax.swing.JFrame {
 //                telaDeletar.setVisible(true);
 //                  TelaCadastroAba telaCadastroAba = new TelaCadastroAba(realizacaoLogin);
 //                  telaCadastroAba.setVisible(true);
+                
+                if(realizacaoLogin.getTipoUsuario().equals("Administrador")){
+                    
+                    JOptionPane.showMessageDialog(null, "Você é um administrador!");
+                    
+                } else {
+                    
+                    JOptionPane.showMessageDialog(null, "Você é normal.");
+                    
+                }
+
                 TelaInicio telaInicio = new TelaInicio(realizacaoLogin);
                 telaInicio.setVisible(true);
 
@@ -160,6 +185,12 @@ public class TelaLogin extends javax.swing.JFrame {
         this.setVisible(false);
         new TelaCadastroUsuario().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void buttonCriarAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCriarAdmActionPerformed
+        this.setVisible(false);
+        TelaCadastroAdministrador telaCadastroAdm = new TelaCadastroAdministrador();
+        telaCadastroAdm.setVisible(true);
+    }//GEN-LAST:event_buttonCriarAdmActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,6 +228,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonCriarAdm;
     private javax.swing.JButton buttonLogin;
     private javax.swing.JTextField emailTextField;
     private javax.swing.JButton jButton2;
