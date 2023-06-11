@@ -7,6 +7,7 @@ package com.mycompany.mindmap.Telas;
 import com.mycompany.mindmap.Telas.Inicio.TelaInicio;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
 import com.mycompany.mindmap.Classes.Usuario;
+import com.mycompany.mindmap.Telas.Administrador.InicioAdm.TelaInicioAdm;
 import com.mycompany.mindmap.Telas.Administrador.TelaCadastroAdministrador;
 import javax.swing.JOptionPane;
 
@@ -155,20 +156,22 @@ public class TelaLogin extends javax.swing.JFrame {
 //                telaDeletar.setVisible(true);
 //                  TelaCadastroAba telaCadastroAba = new TelaCadastroAba(realizacaoLogin);
 //                  telaCadastroAba.setVisible(true);
-                
-                if(realizacaoLogin.getTipoUsuario().equals("Administrador")){
-                    
-                    JOptionPane.showMessageDialog(null, "Você é um administrador!");
-                    
+                if (realizacaoLogin.getTipoUsuario().equals("Administrador")) {
+
+//                    JOptionPane.showMessageDialog(null, "Você é um administrador!");
+                    TelaInicioAdm telaInicioAdm = new TelaInicioAdm(realizacaoLogin);
+                    telaInicioAdm.setVisible(true);
+
                 } else {
-                    
-                    JOptionPane.showMessageDialog(null, "Você é normal.");
-                    
+
+//                    JOptionPane.showMessageDialog(null, "Você é normal.");
+                    TelaInicio telaInicio = new TelaInicio(realizacaoLogin);
+                    telaInicio.setVisible(true);
+
                 }
 
-                TelaInicio telaInicio = new TelaInicio(realizacaoLogin);
-                telaInicio.setVisible(true);
-
+//                TelaInicio telaInicio = new TelaInicio(realizacaoLogin);
+//                telaInicio.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário inválido");
 

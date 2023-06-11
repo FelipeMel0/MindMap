@@ -1,5 +1,6 @@
-package com.mycompany.mindmap.Telas.Inicio;
+package com.mycompany.mindmap.Telas.Administrador.InicioAdm;
 
+import com.mycompany.mindmap.Telas.Inicio.*;
 import com.mycompany.mindmap.Classes.ConexaoBD;
 import com.mycompany.mindmap.Classes.Usuario;
 import com.mycompany.mindmap.Classes.dao.AbaDAO;
@@ -21,7 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JDialog;
 
-public class TelaInicio extends javax.swing.JFrame {
+public class TelaInicioAdm extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaInicio
@@ -97,9 +98,9 @@ public class TelaInicio extends javax.swing.JFrame {
 
     }
 
-    public TelaInicio(Usuario usuario) {
+    public TelaInicioAdm(Usuario usuario) {
 
-        super("Tela de início");
+        super("Tela de início de administrador");
         initComponents();
         setLocationRelativeTo(null);
 
@@ -111,7 +112,7 @@ public class TelaInicio extends javax.swing.JFrame {
         tableAba.getTableHeader().setForeground(new Color(0, 0, 0));
 
         //Aplicando opções para a terceira coluna
-        TableActionEvent evento = new TableActionEvent() {
+        TableActionEventAdm evento = new TableActionEventAdm() {
             @Override
             public void editarAba(int linha) {
 //                System.out.println("Editar: " + linha);
@@ -127,8 +128,8 @@ public class TelaInicio extends javax.swing.JFrame {
             }
         };
 
-        tableAba.getColumnModel().getColumn(2).setCellRenderer(new TableActionCellRender());
-        tableAba.getColumnModel().getColumn(2).setCellEditor(new TableActionCellEditor(evento));
+        tableAba.getColumnModel().getColumn(2).setCellRenderer(new TableActionCellRenderAdm());
+        tableAba.getColumnModel().getColumn(2).setCellEditor(new TableActionCellEditorAdm(evento));
 
         UsuarioDAO usuarioDao = new UsuarioDAO();
 
@@ -194,7 +195,7 @@ public class TelaInicio extends javax.swing.JFrame {
         jLabel1.setText("Início");
 
         jLabel2.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        jLabel2.setText("Todas as abas:");
+        jLabel2.setText("Suas abas:");
 
         tableAba.setFont(new java.awt.Font("Tw Cen MT", 0, 14)); // NOI18N
         tableAba.setModel(new javax.swing.table.DefaultTableModel(
@@ -385,7 +386,7 @@ public class TelaInicio extends javax.swing.JFrame {
     private void buttonTarefasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTarefasActionPerformed
 //        JOptionPane.showMessageDialog(null, "Tarefas");
 
-        DialogSelecionarTarefasAba dialogTarefasAba = new DialogSelecionarTarefasAba(this, rootPaneCheckingEnabled, idUsuario);
+        DialogSelecionarTarefasAbaAdm dialogTarefasAba = new DialogSelecionarTarefasAbaAdm(this, rootPaneCheckingEnabled, idUsuario);
         dialogTarefasAba.setVisible(true);
 
         this.dispose();
@@ -421,21 +422,24 @@ public class TelaInicio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInicioAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInicioAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInicioAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaInicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaInicioAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Usuario usuario = null;
-                new TelaInicio(usuario).setVisible(true);
+                new TelaInicioAdm(usuario).setVisible(true);
             }
         });
     }
