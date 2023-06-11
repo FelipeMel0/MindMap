@@ -35,12 +35,12 @@ public class TelaInicioAdm extends javax.swing.JFrame {
         DefaultTableModel tabelaModel = (DefaultTableModel) tableAba.getModel();
         tabelaModel.setRowCount(0);
 
-        String sql = "SELECT * FROM aba WHERE idUsuario = ?";
+        String sql = "SELECT * FROM aba";
 
         try {
             Connection conn = ConexaoBD.obtemConexao();
             PreparedStatement consulta = conn.prepareStatement(sql);
-            consulta.setInt(1, idUsuario);
+//            consulta.setInt(1, idUsuario);
 
             ResultSet rs = consulta.executeQuery();
 

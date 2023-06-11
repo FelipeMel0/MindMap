@@ -9,6 +9,7 @@ import com.mycompany.mindmap.Classes.Tarefa;
 import com.mycompany.mindmap.Classes.Usuario;
 import com.mycompany.mindmap.Classes.dao.TarefaDAO;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
+import com.mycompany.mindmap.Telas.Administrador.InicioAdm.DialogSelecionarTarefasAbaAdm;
 import com.mycompany.mindmap.Telas.Administrador.InicioAdm.TelaInicioAdm;
 import com.mycompany.mindmap.Telas.Inicio.DialogSelecionarTarefasAba;
 import com.mycompany.mindmap.Telas.Inicio.TelaInicio;
@@ -157,13 +158,13 @@ public class TelaListarTarefasAdm extends javax.swing.JFrame {
         DefaultTableModel tabelaModel = (DefaultTableModel) tableTarefas.getModel();
         tabelaModel.setRowCount(0);
 
-        String sql = "SELECT * FROM tarefa WHERE idUsuario = ? AND idAba = ?";       
+        String sql = "SELECT * FROM tarefa WHERE idAba = ?";       
 
         try {
             Connection conn = ConexaoBD.obtemConexao();
             PreparedStatement consulta = conn.prepareStatement(sql);
-            consulta.setInt(1, idUsuario);
-            consulta.setInt(2, idAba);
+//            consulta.setInt(1, idUsuario);
+            consulta.setInt(1, idAba);
 
             ResultSet rs = consulta.executeQuery();
             
@@ -422,8 +423,8 @@ public class TelaListarTarefasAdm extends javax.swing.JFrame {
 
     private void buttonTarefasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTarefasActionPerformed
         //        JOptionPane.showMessageDialog(null, "Tarefas");
-        DialogSelecionarTarefasAba dialogTarefasAba = new DialogSelecionarTarefasAba(this, rootPaneCheckingEnabled, idUsuario);
-        dialogTarefasAba.setVisible(true);
+        DialogSelecionarTarefasAbaAdm dialogTarefasAbaAdm = new DialogSelecionarTarefasAbaAdm(this, rootPaneCheckingEnabled, idUsuario);
+        dialogTarefasAbaAdm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_buttonTarefasActionPerformed
 

@@ -31,12 +31,12 @@ public class DialogSelecionarTarefasAbaAdm extends javax.swing.JDialog {
     private List<Aba> pegarAbasDoBanco(int idUsuario) {
         List<Aba> abas = new ArrayList<>();
 
-        String sql = "SELECT * FROM aba WHERE idUsuario = ?";
+        String sql = "SELECT * FROM aba";
 
         try {
             Connection conn = ConexaoBD.obtemConexao();
             PreparedStatement consulta = conn.prepareStatement(sql);
-            consulta.setInt(1, idUsuario);
+//            consulta.setInt(1, idUsuario);
 
             ResultSet rs = consulta.executeQuery();
 
