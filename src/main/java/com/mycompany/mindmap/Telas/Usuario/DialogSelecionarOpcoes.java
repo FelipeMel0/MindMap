@@ -1,22 +1,37 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package com.mycompany.mindmap.Telas.Usuario;
 
-/**
- *
- * @author felip
- */
+import com.mycompany.mindmap.Classes.Usuario;
+import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
+import javax.swing.JDialog;
+
 public class DialogSelecionarOpcoes extends javax.swing.JDialog {
 
     /**
      * Creates new form DialogSelecionarOpcoes
      */
-    public DialogSelecionarOpcoes(java.awt.Frame parent, boolean modal) {
+    int idUsuario = 0;
+
+    JDialog dialogEditar = null;
+
+    public DialogSelecionarOpcoes(java.awt.Frame parent, boolean modal, Usuario usuario) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+
+        idUsuario = usuario.getIdUsuario();
+
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        Usuario usuarioEscolhido = usuarioDao.selecionarPorId(idUsuario);
+        String nome = usuarioEscolhido.getNome();
+        String dataNasc = usuarioEscolhido.getDataNasc();
+        String email = usuarioEscolhido.getEmail();
+        String senha = usuarioEscolhido.getSenha();
+        String tipoUsuario = usuarioEscolhido.getTipoUsuario();
+
+        Usuario usuarioLogado = new Usuario(idUsuario, nome, dataNasc, email, senha, tipoUsuario);
+
+        dialogEditar = new DialogEditarUsuario(parent, rootPaneCheckingEnabled, usuarioLogado);
+
     }
 
     /**
@@ -49,6 +64,11 @@ public class DialogSelecionarOpcoes extends javax.swing.JDialog {
         buttonEditar.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         buttonEditar.setForeground(new java.awt.Color(255, 255, 255));
         buttonEditar.setText("EDITAR PERFIL");
+        buttonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         jLabel3.setText("Excluir perfil*");
@@ -114,6 +134,10 @@ public class DialogSelecionarOpcoes extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_buttonCancelarActionPerformed
 
+    private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
+        dialogEditar.setVisible(true);
+    }//GEN-LAST:event_buttonEditarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -144,7 +168,8 @@ public class DialogSelecionarOpcoes extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DialogSelecionarOpcoes dialog = new DialogSelecionarOpcoes(new javax.swing.JFrame(), true);
+                Usuario usuario = null;
+                DialogSelecionarOpcoes dialog = new DialogSelecionarOpcoes(new javax.swing.JFrame(), true, usuario);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

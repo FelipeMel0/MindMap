@@ -136,19 +136,31 @@ public class TelaInicio extends javax.swing.JFrame {
 
         String arrayNome[] = usuarioLogado.getNome().split(" ", 2);
 
-        labelNomeUsuario.setText(arrayNome[0]); 
-        
-        DialogSelecionarOpcoes dialogSelecionarOpcoes = new DialogSelecionarOpcoes(this, rootPaneCheckingEnabled);
-        
-        labelIconePerfil.addMouseListener(new MouseAdapter(){
-        
-            public void mouseClicked(MouseEvent e){
+        labelNomeUsuario.setText(arrayNome[0]);
+
+        String nome = usuarioLogado.getNome();
+        String dataNasc = usuarioLogado.getDataNasc();
+        String email = usuarioLogado.getEmail();
+        String senha = usuarioLogado.getSenha();
+        String tipoUsuario = usuarioLogado.getTipoUsuario();
+
+        Usuario usuarioSelecionado = new Usuario(idUsuario, nome, dataNasc, email, senha, tipoUsuario);
+
+        try {
+
+            DialogSelecionarOpcoes dialogSelecionarOpcoes = new DialogSelecionarOpcoes(this, rootPaneCheckingEnabled, usuarioSelecionado);
+
+            labelIconePerfil.addMouseListener(new MouseAdapter() {
+
+                public void mouseClicked(MouseEvent e) {
 //                System.out.println("Você clicou no ícone de perfil");
-                  
-                  dialogSelecionarOpcoes.setVisible(true);
-            }
-            
-        });
+                    dialogSelecionarOpcoes.setVisible(true);
+                }
+
+            });
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
@@ -375,17 +387,17 @@ public class TelaInicio extends javax.swing.JFrame {
 
         DialogSelecionarTarefasAba dialogTarefasAba = new DialogSelecionarTarefasAba(this, rootPaneCheckingEnabled, idUsuario);
         dialogTarefasAba.setVisible(true);
-        
+
         this.dispose();
 
     }//GEN-LAST:event_buttonTarefasActionPerformed
 
     private void buttonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLogoutActionPerformed
         this.dispose();
-        
+
         TelaLogin telaLogin = new TelaLogin();
         telaLogin.setVisible(true);
-        
+
     }//GEN-LAST:event_buttonLogoutActionPerformed
 
     private void buttonInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonInicioActionPerformed

@@ -72,7 +72,7 @@ public class DialogSelecionarTarefasAba extends javax.swing.JDialog {
 
                 });
             }
-            System.out.println(idUsuarioLogado);
+//            System.out.println(idUsuarioLogado);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -12,8 +12,11 @@ import com.mycompany.mindmap.Telas.Inicio.DialogSelecionarTarefasAba;
 import com.mycompany.mindmap.Telas.Inicio.TelaInicio;
 import com.mycompany.mindmap.Telas.Tarefa.Dialogs.DialogExcluirTarefa;
 import com.mycompany.mindmap.Telas.TelaLogin;
+import com.mycompany.mindmap.Telas.Usuario.DialogSelecionarOpcoes;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -68,6 +71,34 @@ public class TelaListarTarefas extends javax.swing.JFrame {
 
         tableTarefas.getColumnModel().getColumn(8).setCellRenderer(new TableActionCellRenderTarefa());
         tableTarefas.getColumnModel().getColumn(8).setCellEditor(new TableActionCellEditorTarefa(evento));
+        
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+
+        Usuario usuarioLogado = usuarioDao.selecionarPorId(idUsuario);
+
+        String nome = usuarioLogado.getNome();
+        String dataNasc = usuarioLogado.getDataNasc();
+        String email = usuarioLogado.getEmail();
+        String senha = usuarioLogado.getSenha();
+        String tipoUsuario = usuarioLogado.getTipoUsuario();
+
+        Usuario usuarioSelecionado = new Usuario(idUsuario, nome, dataNasc, email, senha, tipoUsuario);
+
+        try {
+
+            DialogSelecionarOpcoes dialogSelecionarOpcoes = new DialogSelecionarOpcoes(this, rootPaneCheckingEnabled, usuarioSelecionado);
+
+            labelIconePerfil.addMouseListener(new MouseAdapter() {
+
+                public void mouseClicked(MouseEvent e) {
+//                System.out.println("Você clicou no ícone de perfil");
+                    dialogSelecionarOpcoes.setVisible(true);
+                }
+
+            });
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         
     }
     
@@ -177,7 +208,7 @@ public class TelaListarTarefas extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         labelNomeUsuario = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        labelIconePerfil = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         buttonTarefas = new javax.swing.JButton();
         buttonLogout = new javax.swing.JButton();
@@ -197,7 +228,7 @@ public class TelaListarTarefas extends javax.swing.JFrame {
         labelNomeUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelNomeUsuario.setText("nome");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconePerfil.png"))); // NOI18N
+        labelIconePerfil.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconePerfil.png"))); // NOI18N
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
@@ -253,7 +284,7 @@ public class TelaListarTarefas extends javax.swing.JFrame {
                     .addComponent(buttonLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel3)
+                        .addComponent(labelIconePerfil)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonTarefas, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
@@ -268,7 +299,7 @@ public class TelaListarTarefas extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelIconePerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelNomeUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -462,10 +493,10 @@ public class TelaListarTarefas extends javax.swing.JFrame {
     private javax.swing.JButton buttonLogout;
     private javax.swing.JButton buttonTarefas;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel labelIconePerfil;
     private javax.swing.JLabel labelNomeAba;
     private javax.swing.JLabel labelNomeUsuario;
     private javax.swing.JTable tableTarefas;
