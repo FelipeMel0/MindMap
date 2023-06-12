@@ -5,10 +5,13 @@ import com.mycompany.mindmap.Classes.Usuario;
 import com.mycompany.mindmap.Classes.dao.GastosDAO;
 import com.mycompany.mindmap.Classes.Gastos;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
+import com.mycompany.mindmap.Telas.Gastos.Dialogs.DialogEditarSaldo;
 import com.mycompany.mindmap.Telas.TelaLogin;
 import com.mycompany.mindmap.Telas.Usuario.DialogSelecionarOpcoes;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.DecimalFormatSymbols;
+import java.text.DecimalFormat;
 
 public class TelaGastos extends javax.swing.JFrame {
 
@@ -60,25 +63,36 @@ public class TelaGastos extends javax.swing.JFrame {
         GastosDAO gastosDao = new GastosDAO();
         try {
             Gastos gastos = gastosDao.selecionarGastosPorId(idUsuario);
-            labelSaldo.setText("R$" + gastos.getSaldo().toString());
-            labelDespesas.setText("R$" + gastos.getDespesas().toString());
-        } catch (Exception e) {
+
+            DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
+            simbolos.setDecimalSeparator(',');
+            simbolos.setGroupingSeparator('.');
+
+            DecimalFormat formatarDecimal = new DecimalFormat("#,##0.00");
+            formatarDecimal.setDecimalFormatSymbols(simbolos);
+
+            String saldoFormatado = formatarDecimal.format(gastos.getSaldo());
+            labelSaldo.setText("R$" + saldoFormatado);
             
+            String despesasFormatada = formatarDecimal.format(gastos.getDespesas());
+            labelDespesas.setText("R$" + despesasFormatada);
+        } catch (Exception e) {
+
             int idUsuarioSelecionado = idUsuario;
             Gastos gasto = new Gastos(0, 0.0, 0.0, idUsuarioSelecionado);
             gastosDao.criarGastos(gasto);
-            
+
             try {
-                
+
                 labelSaldo.setText("R$" + gasto.getSaldo().toString());
                 labelDespesas.setText("R$" + gasto.getDespesas().toString());
-                
+
             } catch (Exception ex) {
-                
+
                 System.out.println(ex.getMessage());
-                
+
             }
-            
+
         }
 
     }
@@ -107,7 +121,7 @@ public class TelaGastos extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         labelSaldo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        buttonModificarSaldo = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -276,11 +290,16 @@ public class TelaGastos extends javax.swing.JFrame {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        jButton1.setBackground(new java.awt.Color(0, 194, 255));
-        jButton1.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("MODIFICAR SALDO");
-        jButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        buttonModificarSaldo.setBackground(new java.awt.Color(0, 194, 255));
+        buttonModificarSaldo.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
+        buttonModificarSaldo.setForeground(new java.awt.Color(255, 255, 255));
+        buttonModificarSaldo.setText("MODIFICAR SALDO");
+        buttonModificarSaldo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        buttonModificarSaldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonModificarSaldoActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(0, 194, 255));
         jButton2.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
@@ -302,7 +321,7 @@ public class TelaGastos extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(19, 19, 19)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonModificarSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(62, 62, 62)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(44, 44, 44))
@@ -320,7 +339,7 @@ public class TelaGastos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                    .addComponent(buttonModificarSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -354,6 +373,16 @@ public class TelaGastos extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_buttonInicioActionPerformed
+
+    private void buttonModificarSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarSaldoActionPerformed
+        GastosDAO gastosDao = new GastosDAO();
+        Gastos gasto = gastosDao.selecionarGastosPorId(idUsuario);
+
+        DialogEditarSaldo dialogEditar = new DialogEditarSaldo(this, rootPaneCheckingEnabled, gasto);
+        dialogEditar.setVisible(true);
+        this.dispose();
+
+    }//GEN-LAST:event_buttonModificarSaldoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -397,8 +426,8 @@ public class TelaGastos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonInicio;
     private javax.swing.JButton buttonLogout;
+    private javax.swing.JButton buttonModificarSaldo;
     private javax.swing.JButton buttonTarefas;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
