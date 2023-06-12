@@ -73,7 +73,7 @@ public class TelaGastos extends javax.swing.JFrame {
 
             String saldoFormatado = formatarDecimal.format(gastos.getSaldo());
             labelSaldo.setText("R$" + saldoFormatado);
-            
+
             String despesasFormatada = formatarDecimal.format(gastos.getDespesas());
             labelDespesas.setText("R$" + despesasFormatada);
         } catch (Exception e) {
@@ -380,7 +380,17 @@ public class TelaGastos extends javax.swing.JFrame {
 
         DialogEditarSaldo dialogEditar = new DialogEditarSaldo(this, rootPaneCheckingEnabled, gasto);
         dialogEditar.setVisible(true);
-        this.dispose();
+        
+        DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
+        simbolos.setDecimalSeparator(',');
+        simbolos.setGroupingSeparator('.');
+
+        DecimalFormat formatarDecimal = new DecimalFormat("#,##0.00");
+        formatarDecimal.setDecimalFormatSymbols(simbolos);
+
+        Gastos gastoAtualizado = gastosDao.selecionarGastosPorId(idUsuario);
+        String saldoFormatado = formatarDecimal.format(gastoAtualizado.getSaldo());
+        labelSaldo.setText("R$" + saldoFormatado);
 
     }//GEN-LAST:event_buttonModificarSaldoActionPerformed
 

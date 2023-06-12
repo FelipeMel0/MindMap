@@ -5,11 +5,13 @@
 package com.mycompany.mindmap.Telas.Gastos.Dialogs;
 
 import com.mycompany.mindmap.Classes.Gastos;
+import com.mycompany.mindmap.Classes.dao.GastosDAO;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import javax.swing.text.MaskFormatter;
 import java.text.NumberFormat;
+import javax.swing.JOptionPane;
 import javax.swing.text.DefaultFormatterFactory;
 
 /**
@@ -21,10 +23,14 @@ public class DialogEditarSaldo extends javax.swing.JDialog {
     /**
      * Creates new form EditarSaldo
      */
+    int idGasto = 0;
+
     public DialogEditarSaldo(java.awt.Frame parent, boolean modal, Gastos gasto) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+
+        idGasto = gasto.getIdGastos();
 
         DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
         simbolos.setDecimalSeparator(',');
@@ -50,7 +56,7 @@ public class DialogEditarSaldo extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtSaldo = new javax.swing.JFormattedTextField();
-        jButton1 = new javax.swing.JButton();
+        buttonEditarSaldo = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -64,10 +70,15 @@ public class DialogEditarSaldo extends javax.swing.JDialog {
 
         txtSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#,##0.00"))));
 
-        jButton1.setBackground(new java.awt.Color(0, 194, 255));
-        jButton1.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("EDITAR SALDO");
+        buttonEditarSaldo.setBackground(new java.awt.Color(0, 194, 255));
+        buttonEditarSaldo.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
+        buttonEditarSaldo.setForeground(new java.awt.Color(255, 255, 255));
+        buttonEditarSaldo.setText("EDITAR SALDO");
+        buttonEditarSaldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditarSaldoActionPerformed(evt);
+            }
+        });
 
         jButton2.setBackground(new java.awt.Color(255, 41, 69));
         jButton2.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
@@ -89,7 +100,7 @@ public class DialogEditarSaldo extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                        .addComponent(buttonEditarSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                         .addComponent(txtSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                         .addComponent(jLabel2)))
                 .addContainerGap(72, Short.MAX_VALUE))
@@ -104,7 +115,7 @@ public class DialogEditarSaldo extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonEditarSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -116,6 +127,42 @@ public class DialogEditarSaldo extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void buttonEditarSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarSaldoActionPerformed
+        GastosDAO gastosDao = new GastosDAO();
+        
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+        symbols.setDecimalSeparator(',');
+        symbols.setGroupingSeparator('.');
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", symbols);
+        
+        double valorConvertido = 0.0;
+        try {
+            
+            valorConvertido = decimalFormat.parse(txtSaldo.getText()).doubleValue();
+            
+        } catch (ParseException e) {
+            System.out.println("Erro ao converter o valor.");
+        }
+
+//        Double saldoNovo = Double.parseDouble(txtSaldo.getText());
+
+        Gastos gasto = new Gastos(idGasto, valorConvertido);
+
+        try {
+            
+            gastosDao.editarSaldoGastos(gasto);
+            JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");
+            this.dispose();
+            
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(null, "Erro ao realizar edição");
+            System.out.println(e.getMessage());
+            
+        }
+
+    }//GEN-LAST:event_buttonEditarSaldoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,7 +209,7 @@ public class DialogEditarSaldo extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton buttonEditarSaldo;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

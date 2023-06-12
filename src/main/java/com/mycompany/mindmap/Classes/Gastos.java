@@ -13,7 +13,12 @@ public class Gastos {
         this.despesas = despesas;
         this.idUsuario = idUsuario;
     }   
-    
+
+    public Gastos(int idGastos, Double saldo) {
+        this.idGastos = idGastos;
+        this.saldo = saldo;
+    }
+        
     public int getIdGastos() {
         return idGastos;
     }

@@ -29,7 +29,7 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jButton2" pref="200" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jButton1" pref="200" max="32767" attributes="0"/>
+                      <Component id="buttonEditarSaldo" pref="200" max="32767" attributes="0"/>
                       <Component id="txtSaldo" pref="200" max="32767" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -48,7 +48,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtSaldo" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="30" max="-2" attributes="0"/>
+              <Component id="buttonEditarSaldo" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton2" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -81,7 +81,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="buttonEditarSaldo">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="c2" red="0" type="rgb"/>
@@ -94,6 +94,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="EDITAR SALDO"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEditarSaldoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
