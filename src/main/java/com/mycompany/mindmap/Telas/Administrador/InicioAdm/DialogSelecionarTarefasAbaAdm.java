@@ -68,12 +68,12 @@ public class DialogSelecionarTarefasAbaAdm extends javax.swing.JDialog {
 
                     int indexSelecionado = comboBoxAbas.getSelectedIndex();
                     if (indexSelecionado >= 0) {
-                        Aba abaSelecionada = abas.get(indexSelecionado);
+                        Aba abaSelecionada = abas.get(indexSelecionado);                        
                         txtIdAba.setText(String.valueOf(abaSelecionada.getIdAba()));
                     }
 
                 });
-            }
+            }            
 //            System.out.println(idUsuarioLogado);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -127,6 +127,11 @@ public class DialogSelecionarTarefasAbaAdm extends javax.swing.JDialog {
 
         txtIdAba.setEditable(false);
         txtIdAba.setFont(new java.awt.Font("Tw Cen MT", 0, 12)); // NOI18N
+        txtIdAba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdAbaActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         jLabel2.setText("Id");
@@ -212,6 +217,10 @@ public class DialogSelecionarTarefasAbaAdm extends javax.swing.JDialog {
         this.dispose();
         
     }//GEN-LAST:event_buttonSelecionarActionPerformed
+
+    private void txtIdAbaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdAbaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdAbaActionPerformed
 
     /**
      * @param args the command line arguments

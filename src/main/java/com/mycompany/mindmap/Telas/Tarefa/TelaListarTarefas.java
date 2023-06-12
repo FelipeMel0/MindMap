@@ -8,6 +8,7 @@ import com.mycompany.mindmap.Classes.Tarefa;
 import com.mycompany.mindmap.Classes.Usuario;
 import com.mycompany.mindmap.Classes.dao.TarefaDAO;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
+import com.mycompany.mindmap.Telas.Gastos.TelaGastos;
 import com.mycompany.mindmap.Telas.Inicio.DialogSelecionarTarefasAba;
 import com.mycompany.mindmap.Telas.Inicio.TelaInicio;
 import com.mycompany.mindmap.Telas.Tarefa.Dialogs.DialogExcluirTarefa;
@@ -213,6 +214,7 @@ public class TelaListarTarefas extends javax.swing.JFrame {
         buttonTarefas = new javax.swing.JButton();
         buttonLogout = new javax.swing.JButton();
         buttonInicio = new javax.swing.JButton();
+        buttonGastos = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         labelNomeAba = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -273,6 +275,18 @@ public class TelaListarTarefas extends javax.swing.JFrame {
             }
         });
 
+        buttonGastos.setBackground(new java.awt.Color(0, 194, 255));
+        buttonGastos.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
+        buttonGastos.setForeground(new java.awt.Color(255, 255, 255));
+        buttonGastos.setText("GASTOS");
+        buttonGastos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        buttonGastos.setContentAreaFilled(false);
+        buttonGastos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGastosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -289,6 +303,7 @@ public class TelaListarTarefas extends javax.swing.JFrame {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonTarefas, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
                 .addGap(10, 10, 10))
+            .addComponent(buttonGastos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -306,6 +321,8 @@ public class TelaListarTarefas extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
                 .addComponent(buttonTarefas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonGastos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonLogout)
                 .addContainerGap())
@@ -450,6 +467,15 @@ public class TelaListarTarefas extends javax.swing.JFrame {
         consultaTarefas();
     }//GEN-LAST:event_buttonCriarTarefaActionPerformed
 
+    private void buttonGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGastosActionPerformed
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        Usuario usuario = usuarioDao.selecionarPorId(idUsuario);
+        TelaGastos telaGastos = new TelaGastos(usuario);
+        telaGastos.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_buttonGastosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -489,6 +515,7 @@ public class TelaListarTarefas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCriarTarefa;
+    private javax.swing.JButton buttonGastos;
     private javax.swing.JButton buttonInicio;
     private javax.swing.JButton buttonLogout;
     private javax.swing.JButton buttonTarefas;
