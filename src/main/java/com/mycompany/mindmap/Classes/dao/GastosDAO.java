@@ -12,12 +12,13 @@ public class GastosDAO {
     public void criarGastos(Gastos gasto) {
 
         try {
-            String sql = "INSERT INTO gastos (saldo, despesas) VALUES (?, ?)";
+            String sql = "INSERT INTO gastos (saldo, despesas, idUsuario) VALUES (?, ?, ?)";
             Connection conn = ConexaoBD.obtemConexao();
             PreparedStatement insert = conn.prepareStatement(sql);
 
             insert.setDouble(1, gasto.getSaldo());
             insert.setDouble(2, gasto.getDespesas());
+            insert.setInt(3, gasto.getIdUsuario());
 
             insert.execute();
         } catch (Exception e) {

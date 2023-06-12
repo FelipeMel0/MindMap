@@ -4,8 +4,10 @@
  */
 package com.mycompany.mindmap.Telas;
 
+import com.mycompany.mindmap.Classes.Gastos;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
 import com.mycompany.mindmap.Classes.Usuario;
+import com.mycompany.mindmap.Classes.dao.GastosDAO;
 import java.text.*;
 import javax.swing.JOptionPane;
 
@@ -185,7 +187,7 @@ public class TelaCadastroUsuario extends javax.swing.JFrame {
 
             dao.criarUsuario(usuario);
 
-            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");
+            JOptionPane.showMessageDialog(null, "Usuário cadastrado com sucesso!");          
             
             this.dispose();
             TelaLogin telaLogin = new TelaLogin();

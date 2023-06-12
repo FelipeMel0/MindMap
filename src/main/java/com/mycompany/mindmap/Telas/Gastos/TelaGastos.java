@@ -63,8 +63,22 @@ public class TelaGastos extends javax.swing.JFrame {
             labelSaldo.setText("R$" + gastos.getSaldo().toString());
             labelDespesas.setText("R$" + gastos.getDespesas().toString());
         } catch (Exception e) {
-            labelSaldo.setText("R$0");
-            labelDespesas.setText("R$0");
+            
+            int idUsuarioSelecionado = idUsuario;
+            Gastos gasto = new Gastos(0, 0.0, 0.0, idUsuarioSelecionado);
+            gastosDao.criarGastos(gasto);
+            
+            try {
+                
+                labelSaldo.setText("R$" + gasto.getSaldo().toString());
+                labelDespesas.setText("R$" + gasto.getDespesas().toString());
+                
+            } catch (Exception ex) {
+                
+                System.out.println(ex.getMessage());
+                
+            }
+            
         }
 
     }
