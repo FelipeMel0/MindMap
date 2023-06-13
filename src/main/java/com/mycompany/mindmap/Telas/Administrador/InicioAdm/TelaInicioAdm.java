@@ -9,6 +9,7 @@ import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
 import com.mycompany.mindmap.Telas.Aba.DialogCadastroAba;
 import com.mycompany.mindmap.Telas.Aba.DialogEditarAba;
 import com.mycompany.mindmap.Telas.Aba.DialogExcluirAba;
+import com.mycompany.mindmap.Telas.Administrador.GastosAdm.Dialogs.DialogSelecionarGastosUsuario;
 import com.mycompany.mindmap.Telas.Administrador.GastosAdm.TelaGastosAdm;
 import com.mycompany.mindmap.Telas.Gastos.TelaGastos;
 import com.mycompany.mindmap.Telas.TelaLogin;
@@ -424,11 +425,12 @@ public class TelaInicioAdm extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonInicioActionPerformed
 
     private void buttonGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGastosActionPerformed
-        UsuarioDAO usuarioDao = new UsuarioDAO();
-        Usuario usuario = usuarioDao.selecionarPorId(idUsuario);
-        TelaGastosAdm telaGastos = new TelaGastosAdm(usuario);
-        telaGastos.setVisible(true);
-        
+//        UsuarioDAO usuarioDao = new UsuarioDAO();
+//        Usuario usuario = usuarioDao.selecionarPorId(idUsuario);
+//        TelaGastosAdm telaGastos = new TelaGastosAdm(usuario);
+//        telaGastos.setVisible(true);
+        DialogSelecionarGastosUsuario dialogSelecionar = new DialogSelecionarGastosUsuario(this, rootPaneCheckingEnabled, idUsuario);
+        dialogSelecionar.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_buttonGastosActionPerformed
 

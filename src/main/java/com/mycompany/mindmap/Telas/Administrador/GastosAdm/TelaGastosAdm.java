@@ -5,6 +5,7 @@ import com.mycompany.mindmap.Classes.Usuario;
 import com.mycompany.mindmap.Classes.dao.GastosDAO;
 import com.mycompany.mindmap.Classes.Gastos;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
+import com.mycompany.mindmap.Telas.Administrador.GastosAdm.Dialogs.DialogSelecionarGastosUsuario;
 import com.mycompany.mindmap.Telas.Administrador.InicioAdm.DialogSelecionarTarefasAbaAdm;
 import com.mycompany.mindmap.Telas.Administrador.InicioAdm.TelaInicioAdm;
 import com.mycompany.mindmap.Telas.Gastos.Dialogs.DialogEditarDespesas;
@@ -22,14 +23,16 @@ public class TelaGastosAdm extends javax.swing.JFrame {
      * Creates new form TelaInicio
      */
     int idUsuario = 0;
+    int idGastos = 0;
 
-    public TelaGastosAdm(Usuario usuario) {
+    public TelaGastosAdm(Usuario usuario, Gastos gasto) {
 
         super("Tela de gastos de administrador");
         initComponents();
         setLocationRelativeTo(null);
 
         idUsuario = usuario.getIdUsuario();
+        idGastos = gasto.getIdGastos();
 
         UsuarioDAO usuarioDao = new UsuarioDAO();
 
@@ -65,7 +68,7 @@ public class TelaGastosAdm extends javax.swing.JFrame {
 
         GastosDAO gastosDao = new GastosDAO();
         try {
-            Gastos gastos = gastosDao.selecionarGastosPorId(idUsuario);
+            Gastos gastos = gastosDao.selecionarGastosPorIdGastos(idGastos);
 
             DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
             simbolos.setDecimalSeparator(',');
@@ -82,8 +85,8 @@ public class TelaGastosAdm extends javax.swing.JFrame {
         } catch (Exception e) {
 
             int idUsuarioSelecionado = idUsuario;
-            Gastos gasto = new Gastos(0, 0.0, 0.0, idUsuarioSelecionado);
-            gastosDao.criarGastos(gasto);
+            Gastos gastoSelecionado = new Gastos(0, 0.0, 0.0, idUsuarioSelecionado);
+            gastosDao.criarGastos(gastoSelecionado);
 
             try {
 
@@ -389,7 +392,7 @@ public class TelaGastosAdm extends javax.swing.JFrame {
 
     private void buttonModificarSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonModificarSaldoActionPerformed
         GastosDAO gastosDao = new GastosDAO();
-        Gastos gasto = gastosDao.selecionarGastosPorId(idUsuario);
+        Gastos gasto = gastosDao.selecionarGastosPorIdGastos(idGastos);
 
         DialogEditarSaldo dialogEditar = new DialogEditarSaldo(this, rootPaneCheckingEnabled, gasto);
         dialogEditar.setVisible(true);
@@ -401,7 +404,7 @@ public class TelaGastosAdm extends javax.swing.JFrame {
         DecimalFormat formatarDecimal = new DecimalFormat("#,##0.00");
         formatarDecimal.setDecimalFormatSymbols(simbolos);
 
-        Gastos gastoAtualizado = gastosDao.selecionarGastosPorId(idUsuario);
+        Gastos gastoAtualizado = gastosDao.selecionarGastosPorIdGastos(idGastos);
         String saldoFormatado = formatarDecimal.format(gastoAtualizado.getSaldo());
         labelSaldo.setText("R$" + saldoFormatado);
 
@@ -409,7 +412,7 @@ public class TelaGastosAdm extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         GastosDAO gastosDao = new GastosDAO();
-        Gastos gasto = gastosDao.selecionarGastosPorId(idUsuario);
+        Gastos gasto = gastosDao.selecionarGastosPorIdGastos(idGastos);
         
         UsuarioDAO usuarioDao = new UsuarioDAO();
         Usuario usuario = usuarioDao.selecionarPorId(idUsuario);
@@ -424,13 +427,15 @@ public class TelaGastosAdm extends javax.swing.JFrame {
         DecimalFormat formatarDecimal = new DecimalFormat("#,##0.00");
         formatarDecimal.setDecimalFormatSymbols(simbolos);
 
-        Gastos gastoAtualizado = gastosDao.selecionarGastosPorId(idUsuario);
+        Gastos gastoAtualizado = gastosDao.selecionarGastosPorIdGastos(idGastos);
         String despesaFormatada = formatarDecimal.format(gastoAtualizado.getDespesas());
         labelDespesas.setText("R$" + despesaFormatada);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        DialogSelecionarGastosUsuario dialogSelecionar = new DialogSelecionarGastosUsuario(this, rootPaneCheckingEnabled, idUsuario);
+        dialogSelecionar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -471,7 +476,8 @@ public class TelaGastosAdm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Usuario usuario = null;
-                new TelaGastosAdm(usuario).setVisible(true);
+                Gastos gasto = null;
+                new TelaGastosAdm(usuario, gasto).setVisible(true);
             }
         });
     }

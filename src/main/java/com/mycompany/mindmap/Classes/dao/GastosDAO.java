@@ -60,6 +60,39 @@ public class GastosDAO {
         
     }
     
+    public Gastos selecionarGastosPorIdGastos(int idGastos){
+        
+        Gastos gasto = null;
+        
+        String sql = "SELECT * FROM gastos WHERE idGastos = ?";
+        
+        try{
+            
+            Connection conn = ConexaoBD.obtemConexao();
+            PreparedStatement consulta = conn.prepareStatement(sql);
+            
+            consulta.setInt(1, idGastos);
+            
+            ResultSet rs = consulta.executeQuery();
+            
+            if(rs.next() == true){
+                int idGastosSelecionado = Integer.parseInt(rs.getString("idGastos"));
+                Double saldo = rs.getDouble("saldo");
+                Double despesas = rs.getDouble("despesas");
+                int idUsuarioLogado = Integer.parseInt(rs.getString("idUsuario"));
+                
+                gasto = new Gastos(idGastosSelecionado, saldo, despesas, idUsuarioLogado);
+                
+            }
+            
+        } catch (Exception e ){
+            System.out.println("Erro: " + e.getMessage());
+        }
+        
+        return gasto;
+        
+    }
+    
     public void editarSaldoGastos(Gastos gasto){
         
         try {
