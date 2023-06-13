@@ -80,5 +80,26 @@ public class GastosDAO {
         }
         
     }
+    
+    public void editarDespesasGastos(Gastos gasto){
+        
+        try {
+            String sql = "UPDATE gastos SET despesas = ? WHERE idGastos = ?";
+
+            Connection conn = ConexaoBD.obtemConexao();
+            PreparedStatement update = conn.prepareStatement(sql);
+            
+            update.setDouble(1, gasto.getDespesas());
+            update.setInt(2, gasto.getIdGastos());
+            
+            update.execute();
+
+        } catch (Exception e){
+            
+            System.out.println("Erro na edição: " + e.getMessage());
+            
+        }
+        
+    }
 
 }

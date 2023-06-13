@@ -5,6 +5,7 @@ import com.mycompany.mindmap.Classes.Usuario;
 import com.mycompany.mindmap.Classes.dao.GastosDAO;
 import com.mycompany.mindmap.Classes.Gastos;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
+import com.mycompany.mindmap.Telas.Gastos.Dialogs.DialogEditarDespesas;
 import com.mycompany.mindmap.Telas.Gastos.Dialogs.DialogEditarSaldo;
 import com.mycompany.mindmap.Telas.TelaLogin;
 import com.mycompany.mindmap.Telas.Usuario.DialogSelecionarOpcoes;
@@ -305,6 +306,11 @@ public class TelaGastos extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Tw Cen MT", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("MODIFICAR DESPESAS");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -393,6 +399,28 @@ public class TelaGastos extends javax.swing.JFrame {
         labelSaldo.setText("R$" + saldoFormatado);
 
     }//GEN-LAST:event_buttonModificarSaldoActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        GastosDAO gastosDao = new GastosDAO();
+        Gastos gasto = gastosDao.selecionarGastosPorId(idUsuario);
+        
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        Usuario usuario = usuarioDao.selecionarPorId(idUsuario);
+
+        DialogEditarDespesas dialogEditarDespesas = new DialogEditarDespesas(this, rootPaneCheckingEnabled, gasto, usuario);
+        dialogEditarDespesas.setVisible(true);
+        
+        DecimalFormatSymbols simbolos = new DecimalFormatSymbols();
+        simbolos.setDecimalSeparator(',');
+        simbolos.setGroupingSeparator('.');
+
+        DecimalFormat formatarDecimal = new DecimalFormat("#,##0.00");
+        formatarDecimal.setDecimalFormatSymbols(simbolos);
+
+        Gastos gastoAtualizado = gastosDao.selecionarGastosPorId(idUsuario);
+        String despesaFormatada = formatarDecimal.format(gastoAtualizado.getDespesas());
+        labelDespesas.setText("R$" + despesaFormatada);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

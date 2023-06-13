@@ -18,7 +18,13 @@ public class Gastos {
         this.idGastos = idGastos;
         this.saldo = saldo;
     }
-        
+
+    public Gastos(int idGastos, Double despesas, int idUsuario) {
+        this.idGastos = idGastos;
+        this.despesas = despesas;
+        this.idUsuario = idUsuario;
+    }    
+    
     public int getIdGastos() {
         return idGastos;
     }
