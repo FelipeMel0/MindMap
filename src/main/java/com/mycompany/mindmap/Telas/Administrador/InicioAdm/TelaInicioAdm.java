@@ -9,6 +9,8 @@ import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
 import com.mycompany.mindmap.Telas.Aba.DialogCadastroAba;
 import com.mycompany.mindmap.Telas.Aba.DialogEditarAba;
 import com.mycompany.mindmap.Telas.Aba.DialogExcluirAba;
+import com.mycompany.mindmap.Telas.Administrador.GastosAdm.TelaGastosAdm;
+import com.mycompany.mindmap.Telas.Gastos.TelaGastos;
 import com.mycompany.mindmap.Telas.TelaLogin;
 import com.mycompany.mindmap.Telas.Usuario.DialogSelecionarOpcoes;
 import java.awt.Color;
@@ -186,6 +188,7 @@ public class TelaInicioAdm extends javax.swing.JFrame {
         buttonTarefas = new javax.swing.JButton();
         buttonLogout = new javax.swing.JButton();
         buttonInicio = new javax.swing.JButton();
+        buttonGastos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -296,6 +299,18 @@ public class TelaInicioAdm extends javax.swing.JFrame {
             }
         });
 
+        buttonGastos.setBackground(new java.awt.Color(0, 194, 255));
+        buttonGastos.setFont(new java.awt.Font("Tw Cen MT", 1, 24)); // NOI18N
+        buttonGastos.setForeground(new java.awt.Color(255, 255, 255));
+        buttonGastos.setText("GASTOS");
+        buttonGastos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        buttonGastos.setContentAreaFilled(false);
+        buttonGastos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGastosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -312,6 +327,7 @@ public class TelaInicioAdm extends javax.swing.JFrame {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonTarefas, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE))
                 .addGap(10, 10, 10))
+            .addComponent(buttonGastos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -329,6 +345,8 @@ public class TelaInicioAdm extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
                 .addComponent(buttonTarefas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonGastos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonLogout)
                 .addContainerGap())
@@ -405,6 +423,15 @@ public class TelaInicioAdm extends javax.swing.JFrame {
 //        JOptionPane.showMessageDialog(null, "Início");
     }//GEN-LAST:event_buttonInicioActionPerformed
 
+    private void buttonGastosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGastosActionPerformed
+        UsuarioDAO usuarioDao = new UsuarioDAO();
+        Usuario usuario = usuarioDao.selecionarPorId(idUsuario);
+        TelaGastosAdm telaGastos = new TelaGastosAdm(usuario);
+        telaGastos.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_buttonGastosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -446,6 +473,7 @@ public class TelaInicioAdm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCadastroAba;
+    private javax.swing.JButton buttonGastos;
     private javax.swing.JButton buttonInicio;
     private javax.swing.JButton buttonLogout;
     private javax.swing.JButton buttonTarefas;

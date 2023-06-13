@@ -1,10 +1,12 @@
-package com.mycompany.mindmap.Telas.Gastos;
+package com.mycompany.mindmap.Telas.Administrador.GastosAdm;
 
 import com.mycompany.mindmap.Telas.Inicio.*;
 import com.mycompany.mindmap.Classes.Usuario;
 import com.mycompany.mindmap.Classes.dao.GastosDAO;
 import com.mycompany.mindmap.Classes.Gastos;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
+import com.mycompany.mindmap.Telas.Administrador.InicioAdm.DialogSelecionarTarefasAbaAdm;
+import com.mycompany.mindmap.Telas.Administrador.InicioAdm.TelaInicioAdm;
 import com.mycompany.mindmap.Telas.Gastos.Dialogs.DialogEditarDespesas;
 import com.mycompany.mindmap.Telas.Gastos.Dialogs.DialogEditarSaldo;
 import com.mycompany.mindmap.Telas.TelaLogin;
@@ -14,16 +16,16 @@ import java.awt.event.MouseEvent;
 import java.text.DecimalFormatSymbols;
 import java.text.DecimalFormat;
 
-public class TelaGastos extends javax.swing.JFrame {
+public class TelaGastosAdm extends javax.swing.JFrame {
 
     /**
      * Creates new form TelaInicio
      */
     int idUsuario = 0;
 
-    public TelaGastos(Usuario usuario) {
+    public TelaGastosAdm(Usuario usuario) {
 
-        super("Tela de gastos");
+        super("Tela de gastos de administrador");
         initComponents();
         setLocationRelativeTo(null);
 
@@ -360,7 +362,7 @@ public class TelaGastos extends javax.swing.JFrame {
     private void buttonTarefasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTarefasActionPerformed
 //        JOptionPane.showMessageDialog(null, "Tarefas");
 
-        DialogSelecionarTarefasAba dialogTarefasAba = new DialogSelecionarTarefasAba(this, rootPaneCheckingEnabled, idUsuario);
+        DialogSelecionarTarefasAbaAdm dialogTarefasAba = new DialogSelecionarTarefasAbaAdm(this, rootPaneCheckingEnabled, idUsuario);
         dialogTarefasAba.setVisible(true);
 
         this.dispose();
@@ -379,7 +381,7 @@ public class TelaGastos extends javax.swing.JFrame {
         UsuarioDAO usuarioDao = new UsuarioDAO();
         Usuario usuario = usuarioDao.selecionarPorId(idUsuario);
 
-        TelaInicio telaInicio = new TelaInicio(usuario);
+        TelaInicioAdm telaInicio = new TelaInicioAdm(usuario);
         telaInicio.setVisible(true);
 
         this.dispose();
@@ -448,24 +450,28 @@ public class TelaGastos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaGastos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGastosAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaGastos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGastosAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaGastos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGastosAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaGastos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaGastosAdm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
-       
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Usuario usuario = null;
-                new TelaGastos(usuario).setVisible(true);
+                new TelaGastosAdm(usuario).setVisible(true);
             }
         });
     }
