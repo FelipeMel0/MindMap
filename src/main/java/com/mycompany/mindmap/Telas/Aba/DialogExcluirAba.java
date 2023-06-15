@@ -6,6 +6,7 @@ package com.mycompany.mindmap.Telas.Aba;
 
 import com.mycompany.mindmap.Classes.Aba;
 import com.mycompany.mindmap.Classes.dao.AbaDAO;
+import com.mycompany.mindmap.Classes.dao.TarefaDAO;
 import javax.swing.JOptionPane;
 
 /**
@@ -111,6 +112,12 @@ public class DialogExcluirAba extends javax.swing.JDialog {
 
         try {
             Aba abaSelecionada = abaDao.selecionarAbaPorId(idAba);
+            
+            int idUsuario = abaSelecionada.getIdUsuario();
+            
+            TarefaDAO tarefaDao = new TarefaDAO();            
+            tarefaDao.excluirTodasTarefasDeUsuario(idUsuario);
+            
             abaDao.excluirAba(abaSelecionada.getIdAba());
 
             JOptionPane.showMessageDialog(null, "Aba excluída com sucesso!");
