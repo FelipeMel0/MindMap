@@ -2,6 +2,7 @@ package com.mycompany.mindmap.Telas.Usuario;
 
 import com.mycompany.mindmap.Classes.Usuario;
 import com.mycompany.mindmap.Classes.dao.AbaDAO;
+import com.mycompany.mindmap.Classes.dao.GastosDAO;
 import com.mycompany.mindmap.Classes.dao.TarefaDAO;
 import com.mycompany.mindmap.Classes.dao.UsuarioDAO;
 import javax.swing.JOptionPane;
@@ -108,6 +109,9 @@ public class DialogExcluirUsuario extends javax.swing.JDialog {
             
             AbaDAO abaDao = new AbaDAO();
             abaDao.excluirTodasAbasDeUsuario(idUsuarioSelecionado);
+            
+            GastosDAO gastosDao = new GastosDAO();
+            gastosDao.excluirGastosPorIdUsuario(idUsuarioSelecionado);
                                     
             usuarioDao.excluirUsuario(usuarioSelecionado.getIdUsuario());
             JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso");
