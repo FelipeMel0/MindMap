@@ -224,7 +224,7 @@ public class DialogSelecionarGastosUsuario extends javax.swing.JDialog {
         
         TelaGastosAdm telaGastos = new TelaGastosAdm(usuario, gasto);
         telaGastos.setVisible(true);
-        JOptionPane.showMessageDialog(null, "Selecionado: " + idGasto);
+//        JOptionPane.showMessageDialog(null, "Selecionado: " + idGasto);
         
         this.dispose();
         

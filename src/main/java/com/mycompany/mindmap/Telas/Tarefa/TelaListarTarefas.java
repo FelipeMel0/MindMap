@@ -156,13 +156,13 @@ public class TelaListarTarefas extends javax.swing.JFrame {
         DefaultTableModel tabelaModel = (DefaultTableModel) tableTarefas.getModel();
         tabelaModel.setRowCount(0);
 
-        String sql = "SELECT * FROM tarefa WHERE idUsuario = ? AND idAba = ?";       
+        String sql = "SELECT * FROM tarefa WHERE idAba = ?";       
 
         try {
             Connection conn = ConexaoBD.obtemConexao();
             PreparedStatement consulta = conn.prepareStatement(sql);
-            consulta.setInt(1, idUsuario);
-            consulta.setInt(2, idAba);
+//            consulta.setInt(1, idUsuario);
+            consulta.setInt(1, idAba);
 
             ResultSet rs = consulta.executeQuery();
             
